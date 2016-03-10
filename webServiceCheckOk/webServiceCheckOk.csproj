@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{824D1E26-9C88-4960-B005-AB33CDBDFBB0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>webServiceCheckOk</RootNamespace>
+    <AssemblyName>webServiceCheckOk</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.DataAccess, Version=2.112.1.2, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Chile_road_sign_RPO-1.svg.ico" />
+    <Content Include="Model\packages.config" />
+    <Content Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WsTecnobank\configuration91.svcinfo" />
+    <None Include="Service References\WsTecnobank\configuration.svcinfo" />
+    <None Include="Service References\WsTecnobank\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\WsCredify\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\WsCheckAuto\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Service References\WsTecnobank\eDecodificacao.wsdl" />
+    <None Include="Service References\WsTecnobank\eDecodificacao.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\WsTecnobank\webServiceCheckOk.WsTecnobank.ENTModeloVeiculo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Web References\WsAbsolutaSolucoes\clsLeilao.wsdl" />
+    <Content Include="Web References\WsAbsolutaSolucoes\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\WsAbsolutaSolucoes\struct_RespostaBol.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\WsAbsolutaSolucoes\struct_RespostaDst.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\WsAbsolutaSolucoes\struct_RespostaRst.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\WsAbsolutaSolucoes\struct_RespostaRstFoto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\WsAutoRisco\bdvl.wsdl" />
+    <Content Include="Web References\WsAutoRisco\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\WsCarsys\DTO_Bases.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\WsCarsys\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\WsCarsys\ws.wsdl" />
+    <None Include="Web References\WsCheckAuto\WebService1.wsdl" />
+    <Content Include="Web References\WsCheckPro\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\WsCheckPro\service.wsdl" />
+    <None Include="Web References\WsCredify\wscredify.wsdl" />
+    <Content Include="Web References\WsSeape\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\WsSeape\VeicularNew.wsdl" />
+    <Content Include="Web References\WsSinaliza\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\WsSinaliza\WServCons.wsdl" />
+    <None Include="Web References\WsTdi\Consulta.wsdl" />
+    <None Include="Web References\WsSinaliza\WServCons.disco" />
+    <Content Include="Web References\WsTdi\Gravame.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\WsTdi\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\WsTdi\RfDenatran.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WsSeape\VeicularNew.disco" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="wsCheckOk.asmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDados\DataBases.cs" />
+    <Compile Include="Controle\Fornecedores\FornCheckPro.cs" />
+    <Compile Include="Controle\ProdutosController\SinistroController.cs" />
+    <Compile Include="Controle\UsuarioController.cs" />
+    <Compile Include="Controle\Fornecedores\FornBoaVista.cs" />
+    <Compile Include="Controle\Fornecedores\FornCheckAuto.cs" />
+    <Compile Include="Controle\Fornecedores\FornConsultAuto.cs" />
+    <Compile Include="Controle\Fornecedores\FornCredify.cs" />
+    <Compile Include="Controle\Fornecedores\FornMotorCheck.cs" />
+    <Compile Include="Controle\Fornecedores\FornSeape.cs" />
+    <Compile Include="Controle\Fornecedores\FornSinaliza.cs" />
+    <Compile Include="Controle\Fornecedores\FornTdb.cs" />
+    <Compile Include="Controle\Fornecedores\FornTdi.cs" />
+    <Compile Include="Controle\Fornecedores\FornTecnoBank.cs" />
+    <Compile Include="Controle\Inteligencia\Autorizacao.cs" />
+    <Compile Include="Controle\Inteligencia\Erros.cs" />
+    <Compile Include="Controle\Inteligencia\LogEstatico.cs" />
+    <Compile Include="Controle\Inteligencia\Utils\CustomTimeOut.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controle\Inteligencia\Utils\Encoding.cs" />
+    <Compile Include="Controle\Inteligencia\Utils\EnvioEmail.cs" />
+    <Compile Include="Controle\Inteligencia\Utils\Util.cs" />
+    <Compile Include="Controle\Inteligencia\Validacao.cs" />
+    <Compile Include="Controle\Inteligencia\Verificacao.cs" />
+    <Compile Include="Controle\ProdutosController\AgregadosController.cs" />
+    <Compile Include="Controle\ProdutosController\BinController.cs" />
+    <Compile Include="Controle\ProdutosController\DecodChassiController.cs" />
+    <Compile Include="Controle\ProdutosController\GravameController.cs" />
+    <Compile Include="Controle\ProdutosController\PrecificadorController.cs" />
+    <Compile Include="Model\EnderecoModel.cs" />
+    <Compile Include="Model\ProdutosModel\AgregadosModel.cs" />
+    <Compile Include="Model\ProdutosModel\DebitMultasModel.cs" />
+    <Compile Include="Model\ProdutosModel\DecodChassiModel.cs" />
+    <Compile Include="Model\ProdutosModel\LeilaoModel.cs" />
+    <Compile Include="Model\Pessoa.cs" />
+    <Compile Include="Model\PessoaFisica.cs" />
+    <Compile Include="Model\PessoaJuridica.cs" />
+    <Compile Include="Model\ProdutosModel\BinModel.cs" />
+    <Compile Include="Model\ProdutosModel\GravameModel.cs" />
+    <Compile Include="Controle\ProdutosController\LeilaoController.cs" />
+    <Compile Include="Model\OKVeiculos.cs" />
+    <Compile Include="Model\ProdutosModel\PrecificadorModel.cs" />
+    <Compile Include="Model\ProdutosModel\SinistroModel.cs" />
+    <Compile Include="Model\Telefone.cs" />
+    <Compile Include="Model\UsuarioModel.cs" />
+    <Compile Include="Model\Veiculo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WsTecnobank\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsAbsolutaSolucoes\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsAutoRisco\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsCarsys\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsCheckAuto\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsCheckPro\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsCredify\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsSeape\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsSinaliza\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WsTdi\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="wsCheckOk.asmx.cs">
+      <DependentUpon>wsCheckOk.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://177.139.253.143:8080/ConsultasWS/services/Consulta%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsTdi\</RelPath>
+      <UpdateFromURL>http://177.139.253.143:8080/ConsultasWS/services/Consulta%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsTdi_Consulta</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsSinaliza\</RelPath>
+      <UpdateFromURL>http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsSinaliza_ConsultasVeiculos</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservice.credhost.com.br/VeicularNew.asmx%3fdisco">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsSeape\</RelPath>
+      <UpdateFromURL>http://webservice.credhost.com.br/VeicularNew.asmx%3fdisco</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsSeape_VeicularNew</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservice.credify.com.br/wscredify.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsCredify\</RelPath>
+      <UpdateFromURL>http://webservice.credify.com.br/wscredify.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsCredify_server_consulta</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsAbsolutaSolucoes\</RelPath>
+      <UpdateFromURL>http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsAbsolutaSolucoes_clsLeilao</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://ws.checkpro.com.br/service.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsCheckPro\</RelPath>
+      <UpdateFromURL>http://ws.checkpro.com.br/service.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsCheckPro_Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://wsar.autorisco.com.br/bdvl/services/Bdvl/bdvl.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsAutoRisco\</RelPath>
+      <UpdateFromURL>http://wsar.autorisco.com.br/bdvl/services/Bdvl/bdvl.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsAutoRisco_Bdvl</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://www.carsys.com.br/consulta/ws.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsCarsys\</RelPath>
+      <UpdateFromURL>http://www.carsys.com.br/consulta/ws.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsCarsys_ws</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://www.checkauto.com.br/ws20v2/WebService1.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WsCheckAuto\</RelPath>
+      <UpdateFromURL>http://www.checkauto.com.br/ws20v2/WebService1.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>webServiceCheckOk_WsCheckAuto_WebService1</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WsTecnobank\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Chile_road_sign_RPO-1.svg.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52605</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52605/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

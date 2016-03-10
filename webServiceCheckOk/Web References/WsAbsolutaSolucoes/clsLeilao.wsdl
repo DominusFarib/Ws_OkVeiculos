@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices.absolutasolucoes.com.br/absoluta/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://webservices.absolutasolucoes.com.br/absoluta/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provimento de servicos (via web services) sobre o Sistema de Veiculos da Absoluta Solucoes Ltda.&lt;br&gt;O provimento deste servico nao eh publico, estando liberado apenas para os clientes regularmente contratados.&lt;br&gt;Versao 2.22 de 06-Set-2015</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.absolutasolucoes.com.br/absoluta/">
+      <s:element name="InputVsBol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pstrCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrSenha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrChassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InputVsBolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InputVsBolResult" type="tns:struct_RespostaBol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="struct_RespostaBol">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Identificacao" type="tns:struct_Identificacao" />
+          <s:element minOccurs="1" maxOccurs="1" name="Controle" type="tns:struct_Controle" />
+          <s:element minOccurs="1" maxOccurs="1" name="Resposta" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="struct_Identificacao">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NomeDaTransacao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescricaoDaTransacao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VersaoDaTransacao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataDaPublicacao" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Autor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="struct_Controle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoDeControle" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Severidade" type="tns:e_Severidade" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descricao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AcaoAdotada" type="tns:e_Acao" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResultadoDaPesquisa" type="tns:e_ResultadoDaPesquisa" />
+          <s:element minOccurs="1" maxOccurs="1" name="GravacaoDoLog" type="tns:e_GravacaoDeLog" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataExecucao" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observacao" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="e_Severidade">
+        <s:restriction base="s:string">
+          <s:enumeration value="e0_NumeradorNaoInicializado" />
+          <s:enumeration value="e1_MensagemDeInformacaoSimples" />
+          <s:enumeration value="e2_MensagemDeAdvertencia" />
+          <s:enumeration value="e3_MensagemDeErro" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="e_Acao">
+        <s:restriction base="s:string">
+          <s:enumeration value="e0_NumeradorNaoInicializado" />
+          <s:enumeration value="e1_TrasacaoFoiExecutada" />
+          <s:enumeration value="e2_TransacaoNaoFoiExecutada" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="e_ResultadoDaPesquisa">
+        <s:restriction base="s:string">
+          <s:enumeration value="e0_NumeradorNaoInicializado" />
+          <s:enumeration value="e1_RegistrosForamLocalizados" />
+          <s:enumeration value="e2_RegistrosNaoForamLocalizados" />
+          <s:enumeration value="e3_RegistrosNemForamPesquisados" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="e_GravacaoDeLog">
+        <s:restriction base="s:string">
+          <s:enumeration value="e0_NumeradorNaoInicializado" />
+          <s:enumeration value="e1_TransacaoFoiLogada" />
+          <s:enumeration value="e2_TransacaoNaoFoiLogada" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="InputVsRst">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pstrCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrSenha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrChassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InputVsRstResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InputVsRstResult" type="tns:struct_RespostaRst" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="struct_RespostaRst">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Identificacao" type="tns:struct_Identificacao" />
+          <s:element minOccurs="1" maxOccurs="1" name="Controle" type="tns:struct_Controle" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resposta" type="tns:ArrayOfStruct_Leilao" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStruct_Leilao">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="struct_Leilao" type="tns:struct_Leilao" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="struct_Leilao">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NsuVeiculo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdLeilao" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lote" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnoModelo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnoFabricacao" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Placa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chassi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Renavam" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Combustivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoriaDoVeiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CondicaoGeralDoVeiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SituacaoDoChassi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrMotor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrCambio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrCarroceria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrEixoTraseiro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="QuantidadeDeEixos" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Patio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Leiloeiro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataLeilao" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comitente" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InputVsDst">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pstrCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrSenha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrChassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InputVsDstResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InputVsDstResult" type="tns:struct_RespostaDst" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="struct_RespostaDst">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Identificacao" type="tns:struct_Identificacao" />
+          <s:element minOccurs="1" maxOccurs="1" name="Controle" type="tns:struct_Controle" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resposta">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InputVsRstFoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pstrCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrSenha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrChassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InputVsRstFotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InputVsRstFotoResult" type="tns:struct_RespostaRstFoto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="struct_RespostaRstFoto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Identificacao" type="tns:struct_Identificacao" />
+          <s:element minOccurs="1" maxOccurs="1" name="Controle" type="tns:struct_Controle" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resposta" type="tns:ArrayOfStruct_LeilaoFoto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStruct_LeilaoFoto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="struct_LeilaoFoto" type="tns:struct_LeilaoFoto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="struct_LeilaoFoto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NsuVeiculo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdLeilao" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lote" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnoModelo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnoFabricacao" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Placa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chassi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Renavam" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Combustivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoriaDoVeiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CondicaoGeralDoVeiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SituacaoDoChassi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrMotor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrCambio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrCarroceria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NrEixoTraseiro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="QuantidadeDeEixos" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Patio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Leiloeiro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataLeilao" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comitente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeFoto1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeFoto2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeFoto3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeFoto4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlFoto1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlFoto2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlFoto3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlFoto4" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InputVsDstFoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pstrCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrSenha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pstrChassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InputVsDstFotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InputVsDstFotoResult" type="tns:struct_RespostaDst" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="struct_RespostaBol" type="tns:struct_RespostaBol" />
+      <s:element name="struct_RespostaRst" type="tns:struct_RespostaRst" />
+      <s:element name="struct_RespostaDst" type="tns:struct_RespostaDst" />
+      <s:element name="struct_RespostaRstFoto" type="tns:struct_RespostaRstFoto" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="InputVsBolSoapIn">
+    <wsdl:part name="parameters" element="tns:InputVsBol" />
+  </wsdl:message>
+  <wsdl:message name="InputVsBolSoapOut">
+    <wsdl:part name="parameters" element="tns:InputVsBolResponse" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstSoapIn">
+    <wsdl:part name="parameters" element="tns:InputVsRst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstSoapOut">
+    <wsdl:part name="parameters" element="tns:InputVsRstResponse" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstSoapIn">
+    <wsdl:part name="parameters" element="tns:InputVsDst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstSoapOut">
+    <wsdl:part name="parameters" element="tns:InputVsDstResponse" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoSoapIn">
+    <wsdl:part name="parameters" element="tns:InputVsRstFoto" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoSoapOut">
+    <wsdl:part name="parameters" element="tns:InputVsRstFotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoSoapIn">
+    <wsdl:part name="parameters" element="tns:InputVsDstFoto" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoSoapOut">
+    <wsdl:part name="parameters" element="tns:InputVsDstFotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InputVsBolHttpGetIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsBolHttpGetOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaBol" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstHttpGetIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstHttpGetOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaRst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstHttpGetIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstHttpGetOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaDst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoHttpGetIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoHttpGetOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaRstFoto" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoHttpGetIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoHttpGetOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaDst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsBolHttpPostIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsBolHttpPostOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaBol" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstHttpPostIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstHttpPostOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaRst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstHttpPostIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstHttpPostOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaDst" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoHttpPostIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsRstFotoHttpPostOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaRstFoto" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoHttpPostIn">
+    <wsdl:part name="pstrCliente" type="s:string" />
+    <wsdl:part name="pstrLogin" type="s:string" />
+    <wsdl:part name="pstrSenha" type="s:string" />
+    <wsdl:part name="pstrPlaca" type="s:string" />
+    <wsdl:part name="pstrChassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InputVsDstFotoHttpPostOut">
+    <wsdl:part name="Body" element="tns:struct_RespostaDst" />
+  </wsdl:message>
+  <wsdl:portType name="clsLeilaoSoap">
+    <wsdl:operation name="InputVsBol">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna indicativo (booleano) sobre o veiculo</wsdl:documentation>
+      <wsdl:input message="tns:InputVsBolSoapIn" />
+      <wsdl:output message="tns:InputVsBolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna os dados dos veiculos em formato XML.&lt;br&gt;Esta eh a melhor opcao para visualizar os dados manualmente.&lt;br&gt;1. Forneca os dados de consulta.&lt;br&gt;2. Quando a resposta surgir em formato xml, clique no centro da pagina com o segundo botao do mouse e escolha a opcao [exibir codigo-fonte] para visualizar os dados em formato mais amigavel.&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstSoapIn" />
+      <wsdl:output message="tns:InputVsRstSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstSoapIn" />
+      <wsdl:output message="tns:InputVsDstSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato string XML</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstFotoSoapIn" />
+      <wsdl:output message="tns:InputVsRstFotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstFotoSoapIn" />
+      <wsdl:output message="tns:InputVsDstFotoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="clsLeilaoHttpGet">
+    <wsdl:operation name="InputVsBol">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna indicativo (booleano) sobre o veiculo</wsdl:documentation>
+      <wsdl:input message="tns:InputVsBolHttpGetIn" />
+      <wsdl:output message="tns:InputVsBolHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna os dados dos veiculos em formato XML.&lt;br&gt;Esta eh a melhor opcao para visualizar os dados manualmente.&lt;br&gt;1. Forneca os dados de consulta.&lt;br&gt;2. Quando a resposta surgir em formato xml, clique no centro da pagina com o segundo botao do mouse e escolha a opcao [exibir codigo-fonte] para visualizar os dados em formato mais amigavel.&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstHttpGetIn" />
+      <wsdl:output message="tns:InputVsRstHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstHttpGetIn" />
+      <wsdl:output message="tns:InputVsDstHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato string XML</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstFotoHttpGetIn" />
+      <wsdl:output message="tns:InputVsRstFotoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstFotoHttpGetIn" />
+      <wsdl:output message="tns:InputVsDstFotoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="clsLeilaoHttpPost">
+    <wsdl:operation name="InputVsBol">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna indicativo (booleano) sobre o veiculo</wsdl:documentation>
+      <wsdl:input message="tns:InputVsBolHttpPostIn" />
+      <wsdl:output message="tns:InputVsBolHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna os dados dos veiculos em formato XML.&lt;br&gt;Esta eh a melhor opcao para visualizar os dados manualmente.&lt;br&gt;1. Forneca os dados de consulta.&lt;br&gt;2. Quando a resposta surgir em formato xml, clique no centro da pagina com o segundo botao do mouse e escolha a opcao [exibir codigo-fonte] para visualizar os dados em formato mais amigavel.&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstHttpPostIn" />
+      <wsdl:output message="tns:InputVsRstHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstHttpPostIn" />
+      <wsdl:output message="tns:InputVsDstHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato string XML</wsdl:documentation>
+      <wsdl:input message="tns:InputVsRstFotoHttpPostIn" />
+      <wsdl:output message="tns:InputVsRstFotoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna dados e fotos dos veiculos em formato DataSet</wsdl:documentation>
+      <wsdl:input message="tns:InputVsDstFotoHttpPostIn" />
+      <wsdl:output message="tns:InputVsDstFotoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="clsLeilaoSoap" type="tns:clsLeilaoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InputVsBol">
+      <soap:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsBol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <soap:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsRst" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <soap:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsDst" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <soap:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsRstFoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <soap:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsDstFoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="clsLeilaoSoap12" type="tns:clsLeilaoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InputVsBol">
+      <soap12:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsBol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <soap12:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsRst" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <soap12:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsDst" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <soap12:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsRstFoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <soap12:operation soapAction="http://webservices.absolutasolucoes.com.br/absoluta/InputVsDstFoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="clsLeilaoHttpGet" type="tns:clsLeilaoHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="InputVsBol">
+      <http:operation location="/InputVsBol" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <http:operation location="/InputVsRst" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <http:operation location="/InputVsDst" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <http:operation location="/InputVsRstFoto" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <http:operation location="/InputVsDstFoto" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="clsLeilaoHttpPost" type="tns:clsLeilaoHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="InputVsBol">
+      <http:operation location="/InputVsBol" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRst">
+      <http:operation location="/InputVsRst" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDst">
+      <http:operation location="/InputVsDst" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsRstFoto">
+      <http:operation location="/InputVsRstFoto" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InputVsDstFoto">
+      <http:operation location="/InputVsDstFoto" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="clsLeilao">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provimento de servicos (via web services) sobre o Sistema de Veiculos da Absoluta Solucoes Ltda.&lt;br&gt;O provimento deste servico nao eh publico, estando liberado apenas para os clientes regularmente contratados.&lt;br&gt;Versao 2.22 de 06-Set-2015</wsdl:documentation>
+    <wsdl:port name="clsLeilaoSoap" binding="tns:clsLeilaoSoap">
+      <soap:address location="http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx" />
+    </wsdl:port>
+    <wsdl:port name="clsLeilaoSoap12" binding="tns:clsLeilaoSoap12">
+      <soap12:address location="http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx" />
+    </wsdl:port>
+    <wsdl:port name="clsLeilaoHttpGet" binding="tns:clsLeilaoHttpGet">
+      <http:address location="http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx" />
+    </wsdl:port>
+    <wsdl:port name="clsLeilaoHttpPost" binding="tns:clsLeilaoHttpPost">
+      <http:address location="http://webservices.absolutasolucoes.com.br/absoluta/clsLeilao.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

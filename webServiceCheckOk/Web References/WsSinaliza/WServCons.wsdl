@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="PesquisaOutrasChaves">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IntIdProduto" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strChassi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumCarroceria" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumCxCambio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumEixoTras" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumTercEixo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNumMotor" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PesquisaOutrasChavesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PesquisaOutrasChavesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Senha" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ConsultaSinaliza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IntIdProduto" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strChassi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUF" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intCodMunic" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaSinalizaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaSinalizaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PesquisaOutrasChavesSoapIn">
+    <wsdl:part name="parameters" element="tns:PesquisaOutrasChaves" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaOutrasChavesSoapOut">
+    <wsdl:part name="parameters" element="tns:PesquisaOutrasChavesResponse" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaOutrasChavesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaSinalizaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaSinaliza" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaSinalizaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaSinalizaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaSinalizaAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:portType name="ConsultasVeiculosSoap">
+    <wsdl:operation name="ConsultaSinaliza">
+      <wsdl:input name="PesquisaOutrasChaves" message="tns:PesquisaOutrasChavesSoapIn" />
+      <wsdl:output name="PesquisaOutrasChaves" message="tns:PesquisaOutrasChavesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSinaliza">
+      <wsdl:input message="tns:ConsultaSinalizaSoapIn" />
+      <wsdl:output message="tns:ConsultaSinalizaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConsultasVeiculosSoap" type="tns:ConsultasVeiculosSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaSinaliza">
+      <soap:operation soapAction="http://tempuri.org/PesquisaOutrasChaves" style="document" />
+      <wsdl:input name="PesquisaOutrasChaves">
+        <soap:body use="literal" />
+        <soap:header message="tns:PesquisaOutrasChavesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PesquisaOutrasChaves">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSinaliza">
+      <soap:operation soapAction="http://tempuri.org/ConsultaSinaliza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsultaSinalizaAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConsultasVeiculosSoap12" type="tns:ConsultasVeiculosSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaSinaliza">
+      <soap12:operation soapAction="http://tempuri.org/PesquisaOutrasChaves" style="document" />
+      <wsdl:input name="PesquisaOutrasChaves">
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PesquisaOutrasChavesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PesquisaOutrasChaves">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSinaliza">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaSinaliza" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsultaSinalizaAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConsultasVeiculos">
+    <wsdl:port name="ConsultasVeiculosSoap" binding="tns:ConsultasVeiculosSoap">
+      <soap:address location="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ConsultasVeiculosSoap12" binding="tns:ConsultasVeiculosSoap12">
+      <soap12:address location="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

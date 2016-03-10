@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="pesquisarPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarRestrDebitosSP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strchassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarRestrDebitosSPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarRestrDebitosSPResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarRestrDebitosOutrasUFs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strchassi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUF" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarRestrDebitosOutrasUFsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarRestrDebitosOutrasUFsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarDecodificadorChassi2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strchassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarDecodificadorChassi2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarDecodificadorChassi2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarDecodficadorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strchassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarDecodficadorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarDecodficadorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PesquisaSinistro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PesquisaSinistroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PesquisaSinistroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisaSinistro2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPlaca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strchassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisaSinistro2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisaSinistro2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PesquisaLeilaoSinistro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PesquisaLeilaoSinistroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PesquisaLeilaoSinistroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassiXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassiXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarPlacaChassiXMLResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarPlacaChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassiIndice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="pesquisarPlacaChassiIndiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pesquisarPlacaChassiIndiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="pesquisarPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarPlaca" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarChassi" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarRestrDebitosSPSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarRestrDebitosSP" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarRestrDebitosSPSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarRestrDebitosSPResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarRestrDebitosOutrasUFsSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarRestrDebitosOutrasUFs" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarRestrDebitosOutrasUFsSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarRestrDebitosOutrasUFsResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarDecodificadorChassi2SoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarDecodificadorChassi2" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarDecodificadorChassi2SoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarDecodificadorChassi2Response" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarDecodficadorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarDecodficadorChassi" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarDecodficadorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarDecodficadorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaSinistroSoapIn">
+    <wsdl:part name="parameters" element="tns:PesquisaSinistro" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaSinistroSoapOut">
+    <wsdl:part name="parameters" element="tns:PesquisaSinistroResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisaSinistro2SoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisaSinistro2" />
+  </wsdl:message>
+  <wsdl:message name="pesquisaSinistro2SoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisaSinistro2Response" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaLeilaoSinistroSoapIn">
+    <wsdl:part name="parameters" element="tns:PesquisaLeilaoSinistro" />
+  </wsdl:message>
+  <wsdl:message name="PesquisaLeilaoSinistroSoapOut">
+    <wsdl:part name="parameters" element="tns:PesquisaLeilaoSinistroResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassiXML" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassiXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassi" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiIndiceSoapIn">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassiIndice" />
+  </wsdl:message>
+  <wsdl:message name="pesquisarPlacaChassiIndiceSoapOut">
+    <wsdl:part name="parameters" element="tns:pesquisarPlacaChassiIndiceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BdvlSoap">
+    <wsdl:operation name="pesquisarPlaca">
+      <wsdl:input message="tns:pesquisarPlacaSoapIn" />
+      <wsdl:output message="tns:pesquisarPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarChassi">
+      <wsdl:input message="tns:pesquisarChassiSoapIn" />
+      <wsdl:output message="tns:pesquisarChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosSP">
+      <wsdl:input message="tns:pesquisarRestrDebitosSPSoapIn" />
+      <wsdl:output message="tns:pesquisarRestrDebitosSPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosOutrasUFs">
+      <wsdl:input message="tns:pesquisarRestrDebitosOutrasUFsSoapIn" />
+      <wsdl:output message="tns:pesquisarRestrDebitosOutrasUFsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodificadorChassi2">
+      <wsdl:input message="tns:pesquisarDecodificadorChassi2SoapIn" />
+      <wsdl:output message="tns:pesquisarDecodificadorChassi2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodficadorChassi">
+      <wsdl:input message="tns:pesquisarDecodficadorChassiSoapIn" />
+      <wsdl:output message="tns:pesquisarDecodficadorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaSinistro">
+      <wsdl:input message="tns:PesquisaSinistroSoapIn" />
+      <wsdl:output message="tns:PesquisaSinistroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisaSinistro2">
+      <wsdl:input message="tns:pesquisaSinistro2SoapIn" />
+      <wsdl:output message="tns:pesquisaSinistro2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaLeilaoSinistro">
+      <wsdl:input message="tns:PesquisaLeilaoSinistroSoapIn" />
+      <wsdl:output message="tns:PesquisaLeilaoSinistroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiXML">
+      <wsdl:input message="tns:pesquisarPlacaChassiXMLSoapIn" />
+      <wsdl:output message="tns:pesquisarPlacaChassiXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassi">
+      <wsdl:input message="tns:pesquisarPlacaChassiSoapIn" />
+      <wsdl:output message="tns:pesquisarPlacaChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiIndice">
+      <wsdl:input message="tns:pesquisarPlacaChassiIndiceSoapIn" />
+      <wsdl:output message="tns:pesquisarPlacaChassiIndiceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BdvlSoap" type="tns:BdvlSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="pesquisarPlaca">
+      <soap:operation soapAction="http://tempuri.org/pesquisarPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarChassi">
+      <soap:operation soapAction="http://tempuri.org/pesquisarChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosSP">
+      <soap:operation soapAction="http://tempuri.org/pesquisarRestrDebitosSP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosOutrasUFs">
+      <soap:operation soapAction="http://tempuri.org/pesquisarRestrDebitosOutrasUFs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodificadorChassi2">
+      <soap:operation soapAction="http://tempuri.org/pesquisarDecodificadorChassi2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodficadorChassi">
+      <soap:operation soapAction="http://tempuri.org/pesquisarDecodficadorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaSinistro">
+      <soap:operation soapAction="http://tempuri.org/PesquisaSinistro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisaSinistro2">
+      <soap:operation soapAction="http://tempuri.org/pesquisaSinistro2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaLeilaoSinistro">
+      <soap:operation soapAction="http://tempuri.org/PesquisaLeilaoSinistro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiXML">
+      <soap:operation soapAction="http://tempuri.org/pesquisarPlacaChassiXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassi">
+      <soap:operation soapAction="http://tempuri.org/pesquisarPlacaChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiIndice">
+      <soap:operation soapAction="http://tempuri.org/pesquisarPlacaChassiIndice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BdvlSoap12" type="tns:BdvlSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="pesquisarPlaca">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarPlaca" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarChassi">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarChassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosSP">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarRestrDebitosSP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarRestrDebitosOutrasUFs">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarRestrDebitosOutrasUFs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodificadorChassi2">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarDecodificadorChassi2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarDecodficadorChassi">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarDecodficadorChassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaSinistro">
+      <soap12:operation soapAction="http://tempuri.org/PesquisaSinistro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisaSinistro2">
+      <soap12:operation soapAction="http://tempuri.org/pesquisaSinistro2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PesquisaLeilaoSinistro">
+      <soap12:operation soapAction="http://tempuri.org/PesquisaLeilaoSinistro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiXML">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarPlacaChassiXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassi">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarPlacaChassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisarPlacaChassiIndice">
+      <soap12:operation soapAction="http://tempuri.org/pesquisarPlacaChassiIndice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Bdvl">
+    <wsdl:port name="BdvlSoap" binding="tns:BdvlSoap">
+      <soap:address location="http://wsar.autorisco.com.br/bdvl/services/Bdvl/bdvl.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BdvlSoap12" binding="tns:BdvlSoap12">
+      <soap12:address location="http://wsar.autorisco.com.br/bdvl/services/Bdvl/bdvl.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

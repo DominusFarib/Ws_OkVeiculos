@@ -1,0 +1,1503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ConsultaBaseEstadualPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uf" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseEstadualPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseEstadualPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseEstadualPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uf" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseEstadualPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseEstadualPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorCaixaCambio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cxCambio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorCaixaCambioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseNacionalPorCaixaCambioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorMotor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="motor" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorMotorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseNacionalPorMotorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseNacionalPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBaseNacionalPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBaseNacionalPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdrfPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdrfPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBdrfPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdrfPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdrfPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBdrfPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdsiiPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdsiiPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBdsiiPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdsiiPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaBdsiiPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaBdsiiPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCnhPorCpf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="val" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCnhPorCpfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaCnhPorCpfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDecodChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="val" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDecodChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDecodChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDpvatPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorCnpj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cnpj" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorCnpjResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDpvatPorCnpjResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorCpf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cpf" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorCpfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDpvatPorCpfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDpvatPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDpvatPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaLeilaoPorChassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chassi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaLeilaoPorChassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaLeilaoPorChassiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaLeilaoPorPlaca">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="placa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaLeilaoPorPlacaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaLeilaoPorPlacaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCpf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cpfUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senhaUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="val" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCpfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaCpfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseEstadualPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseEstadualPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseEstadualPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseEstadualPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorCaixaCambio" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorCaixaCambioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorMotor" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorMotorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBaseNacionalPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBdrfPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBdrfPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBdrfPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBdrfPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBdsiiPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBdsiiPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaBdsiiPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaBdsiiPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaCnhPorCpf" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaCnhPorCpfResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDecodChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDecodChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorCnpj" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorCnpjResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorCpf" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorCpfResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDpvatPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaLeilaoPorChassi" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaLeilaoPorChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaLeilaoPorPlaca" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaLeilaoPorPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaCpf" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaCpfResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+    <wsdl:part name="uf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+    <wsdl:part name="uf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cxCambio" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="motor" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cnpj" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cpf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfHttpGetIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+    <wsdl:part name="uf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+    <wsdl:part name="uf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseEstadualPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cxCambio" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorCaixaCambioHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="motor" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorMotorHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBaseNacionalPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdrfPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaBdsiiPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCnhPorCpfHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDecodChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cnpj" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCnpjHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="cpf" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorCpfHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDpvatPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="chassi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorChassiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="placa" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaLeilaoPorPlacaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfHttpPostIn">
+    <wsdl:part name="cpfUsuario" type="s:string" />
+    <wsdl:part name="senhaUsuario" type="s:string" />
+    <wsdl:part name="val" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCpfHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorCaixaCambioSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorCaixaCambioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorMotorSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorMotorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <wsdl:input message="tns:ConsultaBdrfPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <wsdl:input message="tns:ConsultaBdrfPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <wsdl:input message="tns:ConsultaBdsiiPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <wsdl:input message="tns:ConsultaBdsiiPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <wsdl:input message="tns:ConsultaCnhPorCpfSoapIn" />
+      <wsdl:output message="tns:ConsultaCnhPorCpfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <wsdl:input message="tns:ConsultaDecodChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaDecodChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <wsdl:input message="tns:ConsultaDpvatPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <wsdl:input message="tns:ConsultaDpvatPorCnpjSoapIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCnpjSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <wsdl:input message="tns:ConsultaDpvatPorCpfSoapIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCpfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <wsdl:input message="tns:ConsultaDpvatPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <wsdl:input message="tns:ConsultaLeilaoPorChassiSoapIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorChassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <wsdl:input message="tns:ConsultaLeilaoPorPlacaSoapIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorPlacaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <wsdl:input message="tns:ConsultaCpfSoapIn" />
+      <wsdl:output message="tns:ConsultaCpfSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpGet">
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorCaixaCambioHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorCaixaCambioHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorMotorHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorMotorHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <wsdl:input message="tns:ConsultaBdrfPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <wsdl:input message="tns:ConsultaBdrfPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <wsdl:input message="tns:ConsultaBdsiiPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <wsdl:input message="tns:ConsultaBdsiiPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <wsdl:input message="tns:ConsultaCnhPorCpfHttpGetIn" />
+      <wsdl:output message="tns:ConsultaCnhPorCpfHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <wsdl:input message="tns:ConsultaDecodChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaDecodChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <wsdl:input message="tns:ConsultaDpvatPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <wsdl:input message="tns:ConsultaDpvatPorCnpjHttpGetIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCnpjHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <wsdl:input message="tns:ConsultaDpvatPorCpfHttpGetIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCpfHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <wsdl:input message="tns:ConsultaDpvatPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <wsdl:input message="tns:ConsultaLeilaoPorChassiHttpGetIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorChassiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <wsdl:input message="tns:ConsultaLeilaoPorPlacaHttpGetIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorPlacaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <wsdl:input message="tns:ConsultaCpfHttpGetIn" />
+      <wsdl:output message="tns:ConsultaCpfHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpPost">
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseEstadualPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseEstadualPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorCaixaCambioHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorCaixaCambioHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorMotorHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorMotorHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <wsdl:input message="tns:ConsultaBaseNacionalPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBaseNacionalPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <wsdl:input message="tns:ConsultaBdrfPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <wsdl:input message="tns:ConsultaBdrfPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBdrfPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <wsdl:input message="tns:ConsultaBdsiiPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <wsdl:input message="tns:ConsultaBdsiiPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaBdsiiPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <wsdl:input message="tns:ConsultaCnhPorCpfHttpPostIn" />
+      <wsdl:output message="tns:ConsultaCnhPorCpfHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <wsdl:input message="tns:ConsultaDecodChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaDecodChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <wsdl:input message="tns:ConsultaDpvatPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <wsdl:input message="tns:ConsultaDpvatPorCnpjHttpPostIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCnpjHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <wsdl:input message="tns:ConsultaDpvatPorCpfHttpPostIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorCpfHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <wsdl:input message="tns:ConsultaDpvatPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaDpvatPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <wsdl:input message="tns:ConsultaLeilaoPorChassiHttpPostIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorChassiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <wsdl:input message="tns:ConsultaLeilaoPorPlacaHttpPostIn" />
+      <wsdl:output message="tns:ConsultaLeilaoPorPlacaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <wsdl:input message="tns:ConsultaCpfHttpPostIn" />
+      <wsdl:output message="tns:ConsultaCpfHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseEstadualPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseEstadualPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseNacionalPorCaixaCambio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseNacionalPorMotor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseNacionalPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBaseNacionalPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBdrfPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBdrfPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBdsiiPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaBdsiiPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <soap:operation soapAction="http://tempuri.org/ConsultaCnhPorCpf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaDecodChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaDpvatPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <soap:operation soapAction="http://tempuri.org/ConsultaDpvatPorCnpj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <soap:operation soapAction="http://tempuri.org/ConsultaDpvatPorCpf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaDpvatPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <soap:operation soapAction="http://tempuri.org/ConsultaLeilaoPorChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <soap:operation soapAction="http://tempuri.org/ConsultaLeilaoPorPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <soap:operation soapAction="http://tempuri.org/ConsultaCpf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpGet" type="tns:ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <http:operation location="/ConsultaBaseEstadualPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <http:operation location="/ConsultaBaseEstadualPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <http:operation location="/ConsultaBaseNacionalPorCaixaCambio" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <http:operation location="/ConsultaBaseNacionalPorMotor" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <http:operation location="/ConsultaBaseNacionalPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <http:operation location="/ConsultaBaseNacionalPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <http:operation location="/ConsultaBdrfPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <http:operation location="/ConsultaBdrfPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <http:operation location="/ConsultaBdsiiPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <http:operation location="/ConsultaBdsiiPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <http:operation location="/ConsultaCnhPorCpf" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <http:operation location="/ConsultaDecodChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <http:operation location="/ConsultaDpvatPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <http:operation location="/ConsultaDpvatPorCnpj" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <http:operation location="/ConsultaDpvatPorCpf" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <http:operation location="/ConsultaDpvatPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <http:operation location="/ConsultaLeilaoPorChassi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <http:operation location="/ConsultaLeilaoPorPlaca" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <http:operation location="/ConsultaCpf" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpPost" type="tns:ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ConsultaBaseEstadualPorChassi">
+      <http:operation location="/ConsultaBaseEstadualPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseEstadualPorPlaca">
+      <http:operation location="/ConsultaBaseEstadualPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorCaixaCambio">
+      <http:operation location="/ConsultaBaseNacionalPorCaixaCambio" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorMotor">
+      <http:operation location="/ConsultaBaseNacionalPorMotor" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorChassi">
+      <http:operation location="/ConsultaBaseNacionalPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBaseNacionalPorPlaca">
+      <http:operation location="/ConsultaBaseNacionalPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorChassi">
+      <http:operation location="/ConsultaBdrfPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdrfPorPlaca">
+      <http:operation location="/ConsultaBdrfPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorChassi">
+      <http:operation location="/ConsultaBdsiiPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaBdsiiPorPlaca">
+      <http:operation location="/ConsultaBdsiiPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCnhPorCpf">
+      <http:operation location="/ConsultaCnhPorCpf" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDecodChassi">
+      <http:operation location="/ConsultaDecodChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorChassi">
+      <http:operation location="/ConsultaDpvatPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCnpj">
+      <http:operation location="/ConsultaDpvatPorCnpj" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorCpf">
+      <http:operation location="/ConsultaDpvatPorCpf" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDpvatPorPlaca">
+      <http:operation location="/ConsultaDpvatPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorChassi">
+      <http:operation location="/ConsultaLeilaoPorChassi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaLeilaoPorPlaca">
+      <http:operation location="/ConsultaLeilaoPorPlaca" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCpf">
+      <http:operation location="/ConsultaCpf" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://ws.checkpro.com.br/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
+      <http:address location="http://ws.checkpro.com.br/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
+      <http:address location="http://ws.checkpro.com.br/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

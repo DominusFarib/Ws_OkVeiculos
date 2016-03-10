@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx?wsdl" docRef="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx" xmlns:q1="http://tempuri.org/" binding="q1:ConsultasVeiculosSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://206.222.9.194/WServConsultasVeiculos/WServCons.asmx" xmlns:q2="http://tempuri.org/" binding="q2:ConsultasVeiculosSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

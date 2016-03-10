@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DecodificarChassi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrChassi" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificarChassiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DecodificarChassiResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ENTModeloVeiculo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ENTModeloDecodificacao">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="CdRetorno" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsRetorno" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsChassiTratado" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ModelosPrecificadorI" type="tns:ArrayOfENTModeloPrecificadorI" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ModelosPrecificadorII" type="tns:ArrayOfENTModeloPrecificadorII" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloDecodificacao">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DsChassi" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsOrigem" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsRegiao" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsPais" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCategoria" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsMarca" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsModelo" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NuAno" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCarroceria" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsVersao" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsMotor" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCombustivel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsLocalFabricacao" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseEntity" />
+  <xs:complexType name="ENTModeloPrecificadorI">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCodigo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsMarca" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsModelo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCombustivel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ModeloPrecificadorIAnos" type="tns:ENTModeloPrecificadorIAno" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloPrecificadorIAno">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ModeloPrecificadorIValor" type="tns:ENTModeloPrecificadorIValor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloPrecificadorIValor">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="NuValor" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloPrecificadorII">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCodigo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsMarca" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsModelo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsVersao" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DsCombustivel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ModeloPrecificadorIIAnos" type="tns:ENTModeloPrecificadorIIAno" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloPrecificadorIIAno">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ModeloPrecificadorIIValor" type="tns:ENTModeloPrecificadorIIValor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloPrecificadorIIValor">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="NuValor" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfENTModeloPrecificadorI">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ENTModeloPrecificadorI" nillable="true" type="tns:ENTModeloPrecificadorI" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfENTModeloPrecificadorII">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ENTModeloPrecificadorII" nillable="true" type="tns:ENTModeloPrecificadorII" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloVeiculoValidador">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ENTModeloVeiculo">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="CdDigitoVerificador" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CdNumeroSerial" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloVeiculoValidadorPlaca">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ENTModeloVeiculoValidador">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DsPlaca" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ENTModeloVeiculoPlaca">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ENTModeloVeiculo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DsPlaca" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DecodificarPlaca">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrPlaca" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificarPlacaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DecodificarPlacaResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorChassiI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrChassi" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorChassiIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrecificadorChassiIResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorPlacaI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrPlaca" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorPlacaIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrecificadorPlacaIResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorChassiII">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrChassi" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorChassiIIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrecificadorChassiIIResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorPlacaII">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrPlaca" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrecificadorPlacaIIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrecificadorPlacaIIResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificadorPrecificadoresChassi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrChassi" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificadorPrecificadoresChassiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DecodificadorPrecificadoresChassiResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificadorPrecificadoresPlaca">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="pastrPlaca" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DecodificadorPrecificadoresPlacaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DecodificadorPrecificadoresPlacaResult" type="tns:ENTModeloVeiculo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

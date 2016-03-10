@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="eDecodificacao" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IeDecodificacao_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10 />
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SignedSupportingTokens>
+        <sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss10>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://plataforma.tecnobank.com.br/services/eDecodificacao.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IeDecodificacao_DecodificarChassi_InputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificarChassi" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificarChassi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificarChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificarPlaca_InputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificarPlaca" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificarPlaca_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificarPlacaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorChassiI_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorChassiI" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorChassiI_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorChassiIResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorPlacaI_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorPlacaI" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorPlacaI_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorPlacaIResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorChassiII_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorChassiII" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorChassiII_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorChassiIIResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorPlacaII_InputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorPlacaII" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_PrecificadorPlacaII_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PrecificadorPlacaIIResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificadorPrecificadoresChassi_InputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificadorPrecificadoresChassi" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificadorPrecificadoresChassi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificadorPrecificadoresChassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificadorPrecificadoresPlaca_InputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificadorPrecificadoresPlaca" />
+  </wsdl:message>
+  <wsdl:message name="IeDecodificacao_DecodificadorPrecificadoresPlaca_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DecodificadorPrecificadoresPlacaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IeDecodificacao">
+    <wsdl:operation name="DecodificarChassi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificarChassi" message="tns:IeDecodificacao_DecodificarChassi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificarChassiResponse" message="tns:IeDecodificacao_DecodificarChassi_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DecodificarPlaca">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificarPlaca" message="tns:IeDecodificacao_DecodificarPlaca_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificarPlacaResponse" message="tns:IeDecodificacao_DecodificarPlaca_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorChassiI">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorChassiI" message="tns:IeDecodificacao_PrecificadorChassiI_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorChassiIResponse" message="tns:IeDecodificacao_PrecificadorChassiI_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorPlacaI">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorPlacaI" message="tns:IeDecodificacao_PrecificadorPlacaI_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorPlacaIResponse" message="tns:IeDecodificacao_PrecificadorPlacaI_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorChassiII">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorChassiII" message="tns:IeDecodificacao_PrecificadorChassiII_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorChassiIIResponse" message="tns:IeDecodificacao_PrecificadorChassiII_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorPlacaII">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorPlacaII" message="tns:IeDecodificacao_PrecificadorPlacaII_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/PrecificadorPlacaIIResponse" message="tns:IeDecodificacao_PrecificadorPlacaII_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DecodificadorPrecificadoresChassi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresChassi" message="tns:IeDecodificacao_DecodificadorPrecificadoresChassi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresChassiResponse" message="tns:IeDecodificacao_DecodificadorPrecificadoresChassi_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DecodificadorPrecificadoresPlaca">
+      <wsdl:input wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresPlaca" message="tns:IeDecodificacao_DecodificadorPrecificadoresPlaca_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresPlacaResponse" message="tns:IeDecodificacao_DecodificadorPrecificadoresPlaca_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IeDecodificacao" type="tns:IeDecodificacao">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IeDecodificacao_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DecodificarChassi">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/DecodificarChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodificarPlaca">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/DecodificarPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorChassiI">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/PrecificadorChassiI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorPlacaI">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/PrecificadorPlacaI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorChassiII">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/PrecificadorChassiII" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrecificadorPlacaII">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/PrecificadorPlacaII" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodificadorPrecificadoresChassi">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresChassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodificadorPrecificadoresPlaca">
+      <soap:operation soapAction="http://tempuri.org/IeDecodificacao/DecodificadorPrecificadoresPlaca" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="eDecodificacao">
+    <wsdl:port name="BasicHttpBinding_IeDecodificacao" binding="tns:BasicHttpBinding_IeDecodificacao">
+      <soap:address location="https://plataforma.tecnobank.com.br/services/eDecodificacao.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

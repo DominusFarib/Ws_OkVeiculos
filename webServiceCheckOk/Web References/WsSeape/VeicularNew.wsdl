@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservice.seape.com.br/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://webservice.seape.com.br/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservice.seape.com.br/">
+      <s:element name="ExecConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConsultaID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TOKEN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PLACA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHASSI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MOTOR" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CAMBIO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RENAVAM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UF" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CPF_CNPJ" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DDD" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TELEFONE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecConsultaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecConsultaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecConsultaGeral">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConsultaID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TOKEN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObjHeader" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecConsultaGeralResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecConsultaGeralResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecConsulta" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecConsultaGeral" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecConsultaGeralResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaHttpGetIn">
+    <wsdl:part name="ConsultaID" type="s:string" />
+    <wsdl:part name="TOKEN" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="PLACA" type="s:string" />
+    <wsdl:part name="CHASSI" type="s:string" />
+    <wsdl:part name="MOTOR" type="s:string" />
+    <wsdl:part name="CAMBIO" type="s:string" />
+    <wsdl:part name="RENAVAM" type="s:string" />
+    <wsdl:part name="UF" type="s:string" />
+    <wsdl:part name="CPF_CNPJ" type="s:string" />
+    <wsdl:part name="DDD" type="s:string" />
+    <wsdl:part name="TELEFONE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralHttpGetIn">
+    <wsdl:part name="ConsultaID" type="s:string" />
+    <wsdl:part name="TOKEN" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="ObjHeader" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaHttpPostIn">
+    <wsdl:part name="ConsultaID" type="s:string" />
+    <wsdl:part name="TOKEN" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="PLACA" type="s:string" />
+    <wsdl:part name="CHASSI" type="s:string" />
+    <wsdl:part name="MOTOR" type="s:string" />
+    <wsdl:part name="CAMBIO" type="s:string" />
+    <wsdl:part name="RENAVAM" type="s:string" />
+    <wsdl:part name="UF" type="s:string" />
+    <wsdl:part name="CPF_CNPJ" type="s:string" />
+    <wsdl:part name="DDD" type="s:string" />
+    <wsdl:part name="TELEFONE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralHttpPostIn">
+    <wsdl:part name="ConsultaID" type="s:string" />
+    <wsdl:part name="TOKEN" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="ObjHeader" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecConsultaGeralHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="VeicularNewSoap">
+    <wsdl:operation name="ExecConsulta">
+      <wsdl:input message="tns:ExecConsultaSoapIn" />
+      <wsdl:output message="tns:ExecConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <wsdl:input message="tns:ExecConsultaGeralSoapIn" />
+      <wsdl:output message="tns:ExecConsultaGeralSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="VeicularNewHttpGet">
+    <wsdl:operation name="ExecConsulta">
+      <wsdl:input message="tns:ExecConsultaHttpGetIn" />
+      <wsdl:output message="tns:ExecConsultaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <wsdl:input message="tns:ExecConsultaGeralHttpGetIn" />
+      <wsdl:output message="tns:ExecConsultaGeralHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="VeicularNewHttpPost">
+    <wsdl:operation name="ExecConsulta">
+      <wsdl:input message="tns:ExecConsultaHttpPostIn" />
+      <wsdl:output message="tns:ExecConsultaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <wsdl:input message="tns:ExecConsultaGeralHttpPostIn" />
+      <wsdl:output message="tns:ExecConsultaGeralHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VeicularNewSoap" type="tns:VeicularNewSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecConsulta">
+      <soap:operation soapAction="http://webservice.seape.com.br/ExecConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <soap:operation soapAction="http://webservice.seape.com.br/ExecConsultaGeral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VeicularNewSoap12" type="tns:VeicularNewSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecConsulta">
+      <soap12:operation soapAction="http://webservice.seape.com.br/ExecConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <soap12:operation soapAction="http://webservice.seape.com.br/ExecConsultaGeral" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VeicularNewHttpGet" type="tns:VeicularNewHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ExecConsulta">
+      <http:operation location="/ExecConsulta" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <http:operation location="/ExecConsultaGeral" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VeicularNewHttpPost" type="tns:VeicularNewHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ExecConsulta">
+      <http:operation location="/ExecConsulta" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecConsultaGeral">
+      <http:operation location="/ExecConsultaGeral" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VeicularNew">
+    <wsdl:port name="VeicularNewSoap" binding="tns:VeicularNewSoap">
+      <soap:address location="http://webservice.credhost.com.br/VeicularNew.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VeicularNewSoap12" binding="tns:VeicularNewSoap12">
+      <soap12:address location="http://webservice.credhost.com.br/VeicularNew.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VeicularNewHttpGet" binding="tns:VeicularNewHttpGet">
+      <http:address location="http://webservice.credhost.com.br/VeicularNew.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VeicularNewHttpPost" binding="tns:VeicularNewHttpPost">
+      <http:address location="http://webservice.credhost.com.br/VeicularNew.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
