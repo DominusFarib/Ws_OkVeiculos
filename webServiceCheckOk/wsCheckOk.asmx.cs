@@ -15,6 +15,7 @@ using webServiceCheckOk.Model.ProdutosModel;
 namespace webServiceCheckOk
 {
     /// <summary>
+    /// Branch Local
     /// AUTHOR: Domingos Ribeiro <dofari.dfr@gmail.com>
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
