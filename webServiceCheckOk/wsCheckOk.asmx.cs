@@ -15,7 +15,6 @@ using webServiceCheckOk.Model.ProdutosModel;
 namespace webServiceCheckOk
 {
     /// <summary>
-    /// Projeto Git
     /// AUTHOR: Domingos Ribeiro <dofari.dfr@gmail.com>
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
