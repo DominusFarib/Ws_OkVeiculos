@@ -15,7 +15,7 @@ using webServiceCheckOk.Model.ProdutosModel;
 namespace webServiceCheckOk
 {
     /// <summary>
-    /// Branch Local, testes
+    /// Branch Desenv, testes
     /// AUTHOR: Domingos Ribeiro <dofari.dfr@gmail.com>
     /// DOFARI: Novo teste 11.03.2016
     /// </summary>
