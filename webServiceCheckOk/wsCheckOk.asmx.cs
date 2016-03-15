@@ -27,8 +27,6 @@ namespace webServiceCheckOk
     // [System.Web.Script.Services.ScriptService]
     public class wsCheckOk : System.Web.Services.WebService
     {
-        #region veiculos
-
         [WebMethod]
         public OKVeiculos OkVeiculos(string codProduto, string logon, string senha, string chassi, string uf, string placa, string renavam, string nrMotor, string nrCarroceria, string nrEixoTras, string nrTercEixo, string nrCxCambio, string crlv, string ufCrlv, string cpfCnpj, string tipoPessoa, string ddd1, string telefone1, string ddd2, string telefone2, bool featRouboFurto = false, bool featSTF = false, bool featSTJ = false, bool featTST = false, bool featGravame = false, bool featPrecificador = false, bool featLeilao = false, bool featPerdaTotal = false, bool featBaseNacional = false, bool featProprietario = false)
         {
@@ -39,9 +37,16 @@ namespace webServiceCheckOk
 
             OKVeiculos retorno = new OKVeiculos();
             UsuarioModel dadosUsuario = new UsuarioModel();
-            Veiculo paramVeiculo = new Veiculo();
             AuxParametros parametros = new AuxParametros();
-
+            PrecificadorController dadosPrecificador;
+            AgregadosController dadosAgregados;
+            LeilaoController dadosLeilao;
+            GravameController dadosGravame;
+            BinController dadosBaseNacional;
+            BinController dadosBaseEstadual;
+            SinistroController dadosPerdaTotal;
+            DecodChassiController dadosDecodChassi;
+            
             try
             {
                 retorno.veiculo = null;
@@ -51,19 +56,18 @@ namespace webServiceCheckOk
                 dadosUsuario.Logon = logon != String.Empty ? logon : null;
                 dadosUsuario.Senha = senha != String.Empty ? senha : null;
 
-                paramVeiculo.Chassi = chassi != String.Empty ? chassi : null;
-                paramVeiculo.Uf = uf != String.Empty ? uf : null;
-                paramVeiculo.Placa = placa != String.Empty ? placa : null;
-                paramVeiculo.Renavam = renavam != String.Empty ? renavam : null;
-                paramVeiculo.NrMotor = nrMotor != String.Empty ? nrMotor : null;
-                paramVeiculo.Crlv = crlv != String.Empty ? crlv : null;
-                paramVeiculo.UfCrlv = ufCrlv != String.Empty ? ufCrlv : null;
-
-                paramVeiculo = Util.unSetDadosVazios<Veiculo>(paramVeiculo);
-                parametros.dadosVeiculo = paramVeiculo;
-
-                // string cpfCnpj, string tipoPessoa, string ddd1, string telefone1, string ddd2, string telefone2
                 parametros.dadosPessoa = new Pessoa();
+                parametros.dadosVeiculo = new Veiculo();
+                parametros.features = new AuxParametrosFeatures(featRouboFurto, featSTF, featSTJ, featTST, featGravame, featPrecificador, featLeilao, featPerdaTotal, featBaseNacional, featProprietario);
+
+                parametros.dadosVeiculo.Chassi = chassi != String.Empty ? chassi : null;
+                parametros.dadosVeiculo.Uf = uf != String.Empty ? uf : null;
+                parametros.dadosVeiculo.Placa = placa != String.Empty ? placa : null;
+                parametros.dadosVeiculo.Renavam = renavam != String.Empty ? renavam : null;
+                parametros.dadosVeiculo.NrMotor = nrMotor != String.Empty ? nrMotor : null;
+                parametros.dadosVeiculo.Crlv = crlv != String.Empty ? crlv : null;
+                parametros.dadosVeiculo.UfCrlv = ufCrlv != String.Empty ? ufCrlv : null;
+
                 parametros.dadosPessoa.Documento = cpfCnpj;
                 parametros.dadosPessoa.Tipo = tipoPessoa;
 
@@ -81,10 +85,10 @@ namespace webServiceCheckOk
                     else
                         parametros.dadosPessoa.Telefone = new Telefone(ddd2, telefone2);
                 }
-                
-                parametros.dadosPessoa = Util.unSetDadosVazios<Pessoa>(parametros.dadosPessoa);
 
-                parametros.features = new AuxParametrosFeatures(featRouboFurto, featSTF, featSTJ, featTST, featGravame, featPrecificador, featLeilao, featPerdaTotal, featBaseNacional, featProprietario);
+                parametros.dadosVeiculo = Util.unSetDadosVazios<Veiculo>(parametros.dadosVeiculo);
+                parametros.dadosPessoa = Util.unSetDadosVazios<Pessoa>(parametros.dadosPessoa);
+                parametros.features = Util.unSetDadosVazios<AuxParametrosFeatures>(parametros.features);
                 
                 #endregion
 
@@ -122,8 +126,7 @@ namespace webServiceCheckOk
                     Verificacao checagem = new Verificacao();
                     string receita = checagem.getReceitaLogon(logon);
 
-                    if (!receita.Equals("56"))
-                        featProprietario = false;
+                    if (!receita.Equals("56"))  featProprietario = false;
                 }
 
                 // CHASSI
@@ -559,81 +562,75 @@ namespace webServiceCheckOk
                 #endregion
 
 
-            #endregion
+                #endregion
 
-            #region CONSULTAS
+                #region CONSULTAS
 
-                // LEILAO SINTETICO
-                if (codProduto.Equals("03") && (placa.Length > 0 || chassi.Length > 0))
+                switch(codProduto)
                 {
-                    LeilaoController dadosLeilao = new LeilaoController();
-                    retorno.Cabecalho = new AuxDadosConsulta("03", "LEILAO SINTETICO", parametros);
-                    retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, paramVeiculo);
-                }
-                // BASE NACIONAL
-                else if (codProduto.Equals("14") && (placa.Length > 0 || chassi.Length > 0 || nrMotor.Length > 0 || renavam.Length > 0))
-                {
-                    BinController dadosBaseNacional = new BinController();
-                    retorno.Cabecalho = new AuxDadosConsulta("14", "BIN NACIONAL", parametros);
-                    retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, paramVeiculo, true, true);
-                }
-                // BASE ESTADUAL
-                else if (codProduto.Equals("16") && (placa.Length > 0 || chassi.Length > 0) && (uf.Length > 0))
-                {
-                    BinController dadosBaseEstadual = new BinController();
-                    retorno.Cabecalho = new AuxDadosConsulta("16", "BIN ESTADUAL", parametros);
-                    retorno.BinEstadual = dadosBaseEstadual.getBinEstadual(dadosUsuario, paramVeiculo, true);
-                }
-                // BASE NACIONAL ROUBO E FURTO - BINRF
-                else if (codProduto.Equals("17") && (placa.Length > 0 || chassi.Length > 0 || nrMotor.Length > 0 || renavam.Length > 0))
-                {
-                    BinController dadosBaseNacional = new BinController();
-                    retorno.Cabecalho = new AuxDadosConsulta("17", "BIN ROUBO E FURTO", parametros);
-                    retorno.BinRouboFurto = dadosBaseNacional.getBinRouboFurto(dadosUsuario, paramVeiculo, true, true);
-                }
-                // AGREGADOS
-                else if (codProduto.Equals("15") && (placa.Length > 0 || chassi.Length > 0 || nrCarroceria.Length > 0 || nrEixoTras.Length > 0 || nrTercEixo.Length > 0 || nrCxCambio.Length > 0 || nrMotor.Length > 0))
-                {
-                    AgregadosController dadosAgregados = new AgregadosController();
-                    retorno.Cabecalho = new AuxDadosConsulta("15", "AGREGADOS", parametros);
-                    retorno.Agregados = dadosAgregados.getAgregados(dadosUsuario, paramVeiculo, false);
-                    if(featPrecificador)
-                    {
-                        PrecificadorController dadosPrecificador = new PrecificadorController();
-                        retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, paramVeiculo);
-                    }
-                }
-                // GRAVAME COMPLETO
-                else if (codProduto.Equals("19") && (placa.Length > 0 || chassi.Length > 0))
-                {
-                    GravameController dadosGravame = new GravameController();
-                    LeilaoController dadosLeilao = new LeilaoController();
-                    PrecificadorController dadosPrecificador = new PrecificadorController();
-                    SinistroController dadosPerdaTotal = new SinistroController();
+                    // LEILAO SINTETICO
+                    case "03":
+                        dadosLeilao = new LeilaoController();
+                        retorno.Cabecalho = new AuxDadosConsulta("03", "LEILAO SINTETICO", parametros);
+                        retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo);
+                    break;
+                    // BASE NACIONAL
+                    case "14":
+                        dadosBaseNacional = new BinController();
+                        retorno.Cabecalho = new AuxDadosConsulta("14", "BIN NACIONAL", parametros);
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true, true);
+                    break;
+                    // BASE ESTADUAL
+                    case "16":
+                        dadosBaseEstadual = new BinController();
+                        retorno.Cabecalho = new AuxDadosConsulta("16", "BIN ESTADUAL", parametros);
+                        retorno.BinEstadual = dadosBaseEstadual.getBinEstadual(dadosUsuario, parametros.dadosVeiculo, true);
+                    break;
+                    // BASE NACIONAL ROUBO E FURTO - BINRF
+                    case "17":
+                        dadosBaseNacional = new BinController();
+                        retorno.Cabecalho = new AuxDadosConsulta("17", "BIN ROUBO E FURTO", parametros);
+                        retorno.BinRouboFurto = dadosBaseNacional.getBinRouboFurto(dadosUsuario, parametros.dadosVeiculo, true, true);
+                    break;
+                    // AGREGADOS
+                    case "15":
+                        dadosAgregados = new AgregadosController();
+                        retorno.Cabecalho = new AuxDadosConsulta("15", "AGREGADOS", parametros);
+                        retorno.Agregados = dadosAgregados.getAgregados(dadosUsuario, parametros.dadosVeiculo, false);
+                        if(featPrecificador)
+                        {
+                            dadosPrecificador = new PrecificadorController();
+                            retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, parametros.dadosVeiculo);
+                        }
+                    break;
+                    // GRAVAME COMPLETO
+                    case "19":
+                        dadosGravame = new GravameController();
+                        dadosLeilao = new LeilaoController();
+                        dadosPrecificador = new PrecificadorController();
+                        dadosPerdaTotal = new SinistroController();
 
-                    retorno.Cabecalho = new AuxDadosConsulta("19", "GRAVAME COMPLETO", parametros);
-                    retorno.Gravame = dadosGravame.getGravame(dadosUsuario, paramVeiculo, true);
-                    retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, paramVeiculo, true);
-                    retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, paramVeiculo);
-                    retorno.PerdaTotal = dadosPerdaTotal.getPerdaTotal(dadosUsuario, paramVeiculo, true);
+                        retorno.Cabecalho = new AuxDadosConsulta("19", "GRAVAME COMPLETO", parametros);
+                        retorno.Gravame = dadosGravame.getGravame(dadosUsuario, parametros.dadosVeiculo, true);
+                        retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo, true);
+                        retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, parametros.dadosVeiculo);
+                        retorno.PerdaTotal = dadosPerdaTotal.getPerdaTotal(dadosUsuario, parametros.dadosVeiculo, true);
+                    break;
+                    // GRAVAME SIMPLES
+                    case "20":
+                        dadosGravame = new GravameController();
+                        dadosBaseNacional = new BinController();
+                        retorno.Cabecalho = new AuxDadosConsulta("20", "GRAVAME SIMPLES", parametros);
+                        retorno.Gravame = dadosGravame.getGravame(dadosUsuario, parametros.dadosVeiculo, false);
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                    break;
+                    // DECODIFICADOR CHASSI
+                    case "27":
+                        dadosDecodChassi = new DecodChassiController();
+                        retorno.Cabecalho = new AuxDadosConsulta("27", "DECODIFICADOR DE CHASSI", parametros);
+                        retorno.DecodChassi = dadosDecodChassi.getDecodChassi(dadosUsuario, parametros.dadosVeiculo, true);
+                    break;
                 }
-                // GRAVAME SIMPLES
-                else if (codProduto.Equals("20") && (chassi.Length > 0))
-                {
-                    GravameController dadosGravame = new GravameController();
-                    BinController dadosBaseNacional = new BinController();
-                    retorno.Cabecalho = new AuxDadosConsulta("20", "GRAVAME SIMPLES", parametros);
-                    retorno.Gravame = dadosGravame.getGravame(dadosUsuario, paramVeiculo, false);
-                    retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, paramVeiculo, true);
-                }
-                // DECODIFICADOR CHASSI
-                else if (codProduto.Equals("27") && (placa.Length > 0 || chassi.Length > 0))
-                {
-                    DecodChassiController dadosDecodChassi = new DecodChassiController();
-                    retorno.Cabecalho = new AuxDadosConsulta("27", "DECODIFICADOR DE CHASSI", parametros);
-                    retorno.DecodChassi = dadosDecodChassi.getDecodChassi(dadosUsuario, paramVeiculo, true);
-                }
-
                  /* 
                 // VEÍCULO DIRIJA
                 else if ((tipoConsulta.Equals("67")))
@@ -773,6 +770,5 @@ namespace webServiceCheckOk
 
             return retorno;
         }
-        #endregion
     }
 }
