@@ -89,6 +89,23 @@ namespace webServiceCheckOk
                 #endregion
 
                 #region VALIDACAO
+
+                // AUTORIZACAO
+                Autorizacao autorizando = new Autorizacao(logon, senha, codProduto.Length == 2 ? "PC" + codProduto : codProduto);
+
+                autorizando.verificaAutorizacao();
+                if (autorizando.erro == null)
+                    autorizando.verificaAgenda();
+                if (autorizando.erro == null)
+                    autorizando.verificaTravaFinanceira();
+
+                if (autorizando.erro != null)
+                {
+                    retorno.Mensagem = autorizando.erro.Codigo.ToString() + ": " + autorizando.erro.Descricao.ToString();
+                    return retorno;
+                }
+
+
                 // IP INTERNO X INTEGRADOR
                 if (ConfigurationManager.AppSettings["HABILITA_IP_INTERNO"] == "S")
                 {
@@ -107,6 +124,172 @@ namespace webServiceCheckOk
 
                     if (!receita.Equals("56"))
                         featProprietario = false;
+                }
+
+                // CHASSI
+                if (chassi.Trim().Length > 0)
+                {
+                    chassi = chassi.ToUpper().Trim();
+
+                    if (!Veiculo.validaChassi(chassi))
+                    {
+                        retorno.Mensagem = "Chassi inválido";
+                        return retorno;
+                    }
+                }
+
+                // UF
+                if (uf.Trim().Length > 0)
+                {
+                    uf = uf.ToUpper().Trim();
+
+                    if (regLetras.IsMatch(uf) || !uf.Length.Equals(2))
+                    {
+                        retorno.Mensagem = "UF inválida";
+                    }
+                }
+
+                // PLACA
+                if (placa.Trim().Length > 0)
+                {
+                    placa = placa.ToUpper().Trim();
+
+                    if (!Veiculo.validaPlaca(placa))
+                    {
+                        retorno.Mensagem = "Placa do veículo inválida";
+                        return retorno;
+                    }
+                }
+
+                // RENAVAM
+                if (renavam.Trim().Length > 0)
+                {
+                    renavam = renavam.ToUpper().Trim();
+
+                    if (!Veiculo.validaRenavam(renavam))
+                    {
+                        retorno.Mensagem = "Renavam inválidoa";
+                        return retorno;
+                    }
+                }
+
+                // MOTOR
+                if (nrMotor.Trim().Length > 0)
+                {
+                    nrMotor = nrMotor.ToUpper().Trim();
+
+                    if (!Veiculo.validaMotor(nrMotor))
+                    {
+                        retorno.Mensagem = "Motor inválido";
+                        return retorno;
+                    }
+                }
+
+                // CRLV
+                if (crlv.Trim().Length > 0)
+                {
+                    crlv = crlv.ToUpper().Trim();
+
+                    if (!Veiculo.validaCrlv(crlv))
+                    {
+                        retorno.Mensagem = "CRLV inválido";
+                        return retorno;
+                    }
+                }
+
+                // UF CRLV
+                if (ufCrlv.Trim().Length > 0)
+                {
+                    ufCrlv = ufCrlv.ToUpper().Trim();
+
+                    if (!Veiculo.validaUfCrlv(ufCrlv))
+                    {
+                        retorno.Mensagem = "UF CRLV inválida";
+                        return retorno;
+                    }
+                }
+
+                // CPF/CNPJ
+                if (cpfCnpj.Trim().Length > 0)
+                {
+                    cpfCnpj = cpfCnpj.ToUpper().Trim();
+
+                    if (!cpfCnpj.Length.Equals(11) && !cpfCnpj.Length.Equals(14) && regNumeros.IsMatch(cpfCnpj))
+                    {
+                        retorno.Mensagem = "CPF/CNPJ inválido";
+                        return retorno;
+                    }
+                    
+                    if(cpfCnpj.Length.Equals(11))
+                    {
+                        if(!PessoaFisica.validaCPF(cpfCnpj))
+                        {
+                            retorno.Mensagem = "CPF/CNPJ inválido";
+                            return retorno;
+                        }
+                    }else if(cpfCnpj.Length.Equals(14))
+                    {
+                        if(!PessoaJuridica.validaCNPJ(cpfCnpj))
+                        {
+                            retorno.Mensagem = "CPF/CNPJ inválido";
+                            return retorno;
+                        }
+                    }
+                }
+
+                // DDD1
+                if (ddd1.Trim().Length > 0)
+                {
+                    ddd1 = ddd1.ToUpper().Trim();
+
+                    if (!ddd1.Length.Equals(2) || regNumeros.IsMatch(ddd1))
+                    {
+                        retorno.Mensagem = "DDD1 inválido";
+                    }
+                }
+
+                // TELEFONE1
+                if (telefone1.Trim().Length > 0)
+                {
+                    telefone1 = telefone1.ToUpper().Trim();
+
+                    if (telefone1.Length < 8 || regNumeros.IsMatch(telefone1))
+                    {
+                        retorno.Mensagem = "Telefone 1 inválido";
+                    }
+                }
+
+                // DDD2
+                if (ddd2.Trim().Length > 0)
+                {
+                    ddd2 = ddd1.ToUpper().Trim();
+
+                    if (!ddd2.Length.Equals(2) || regNumeros.IsMatch(ddd2))
+                    {
+                        retorno.Mensagem = "DDD2 inválido";
+                    }
+                }
+
+                // TELEFONE2
+                if (telefone2.Trim().Length > 0)
+                {
+                    telefone2 = telefone2.ToUpper().Trim();
+
+                    if (telefone2.Length < 8 || regNumeros.IsMatch(telefone2))
+                    {
+                        retorno.Mensagem = "Telefone2 inválido";
+                    }
+                }
+
+                // TIPO PESSOA
+                if (tipoPessoa.Trim().Length > 0)
+                {
+                    tipoPessoa = tipoPessoa.ToUpper().Trim();
+
+                    if (!tipoPessoa.Length.Equals(1) || regLetras.IsMatch(tipoPessoa))
+                    {
+                        retorno.Mensagem = "Tipo Pessoa inválido";
+                    }
                 }
 
                 #region VALIDA O PRODUTO/CONSULTA SOLICITADO
@@ -375,186 +558,7 @@ namespace webServiceCheckOk
 
                 #endregion
 
-                // CHASSI
-                if (chassi.Trim().Length > 0)
-                {
-                    chassi = chassi.ToUpper().Trim();
 
-                    if (!Veiculo.validaChassi(chassi))
-                    {
-                        retorno.Mensagem = "Chassi inválido";
-                        return retorno;
-                    }
-                }
-
-                // UF
-                if (uf.Trim().Length > 0)
-                {
-                    uf = uf.ToUpper().Trim();
-
-                    if (regLetras.IsMatch(uf) || !uf.Length.Equals(2))
-                    {
-                        retorno.Mensagem = "UF inválida";
-                    }
-                }
-
-                // PLACA
-                if (placa.Trim().Length > 0)
-                {
-                    placa = placa.ToUpper().Trim();
-
-                    if (!Veiculo.validaPlaca(placa))
-                    {
-                        retorno.Mensagem = "Placa do veículo inválida";
-                        return retorno;
-                    }
-                }
-
-                // RENAVAM
-                if (renavam.Trim().Length > 0)
-                {
-                    renavam = renavam.ToUpper().Trim();
-
-                    if (!Veiculo.validaRenavam(renavam))
-                    {
-                        retorno.Mensagem = "Renavam inválidoa";
-                        return retorno;
-                    }
-                }
-
-                // MOTOR
-                if (nrMotor.Trim().Length > 0)
-                {
-                    nrMotor = nrMotor.ToUpper().Trim();
-
-                    if (!Veiculo.validaMotor(nrMotor))
-                    {
-                        retorno.Mensagem = "Motor inválido";
-                        return retorno;
-                    }
-                }
-
-                // CRLV
-                if (crlv.Trim().Length > 0)
-                {
-                    crlv = crlv.ToUpper().Trim();
-
-                    if (!Veiculo.validaCrlv(crlv))
-                    {
-                        retorno.Mensagem = "CRLV inválido";
-                        return retorno;
-                    }
-                }
-
-                // UF CRLV
-                if (ufCrlv.Trim().Length > 0)
-                {
-                    ufCrlv = ufCrlv.ToUpper().Trim();
-
-                    if (!Veiculo.validaUfCrlv(ufCrlv))
-                    {
-                        retorno.Mensagem = "UF CRLV inválida";
-                        return retorno;
-                    }
-                }
-
-                // CPF/CNPJ
-                if (cpfCnpj.Trim().Length > 0)
-                {
-                    cpfCnpj = cpfCnpj.ToUpper().Trim();
-
-                    if (!cpfCnpj.Length.Equals(11) && !cpfCnpj.Length.Equals(14) && regNumeros.IsMatch(cpfCnpj))
-                    {
-                        retorno.Mensagem = "CPF/CNPJ inválido";
-                        return retorno;
-                    }
-                    
-                    if(cpfCnpj.Length.Equals(11))
-                    {
-                        if(!PessoaFisica.validaCPF(cpfCnpj))
-                        {
-                            retorno.Mensagem = "CPF/CNPJ inválido";
-                            return retorno;
-                        }
-                    }else if(cpfCnpj.Length.Equals(14))
-                    {
-                        if(!PessoaJuridica.validaCNPJ(cpfCnpj))
-                        {
-                            retorno.Mensagem = "CPF/CNPJ inválido";
-                            return retorno;
-                        }
-                    }
-                }
-
-                // DDD1
-                if (ddd1.Trim().Length > 0)
-                {
-                    ddd1 = ddd1.ToUpper().Trim();
-
-                    if (!ddd1.Length.Equals(2) || regNumeros.IsMatch(ddd1))
-                    {
-                        retorno.Mensagem = "DDD1 inválido";
-                    }
-                }
-
-                // TELEFONE1
-                if (telefone1.Trim().Length > 0)
-                {
-                    telefone1 = telefone1.ToUpper().Trim();
-
-                    if (telefone1.Length < 8 || regNumeros.IsMatch(telefone1))
-                    {
-                        retorno.Mensagem = "Telefone 1 inválido";
-                    }
-                }
-
-                // DDD2
-                if (ddd2.Trim().Length > 0)
-                {
-                    ddd2 = ddd1.ToUpper().Trim();
-
-                    if (!ddd2.Length.Equals(2) || regNumeros.IsMatch(ddd2))
-                    {
-                        retorno.Mensagem = "DDD2 inválido";
-                    }
-                }
-
-                // TELEFONE2
-                if (telefone2.Trim().Length > 0)
-                {
-                    telefone2 = telefone2.ToUpper().Trim();
-
-                    if (telefone2.Length < 8 || regNumeros.IsMatch(telefone2))
-                    {
-                        retorno.Mensagem = "Telefone2 inválido";
-                    }
-                }
-
-                // TIPO PESSOA
-                if (tipoPessoa.Trim().Length > 0)
-                {
-                    tipoPessoa = tipoPessoa.ToUpper().Trim();
-
-                    if (!tipoPessoa.Length.Equals(1) || regLetras.IsMatch(tipoPessoa))
-                    {
-                        retorno.Mensagem = "Tipo Pessoa inválido";
-                    }
-                }
-
-                // AUTORIZACAO
-                Autorizacao autorizando = new Autorizacao(logon, senha, codProduto.Length == 2 ? "PC" + codProduto : codProduto);
-
-                autorizando.verificaAutorizacao();
-                if (autorizando.erro == null)
-                    autorizando.verificaAgenda();
-                if (autorizando.erro == null)
-                    autorizando.verificaTravaFinanceira();
-
-                if (autorizando.erro != null)
-                {
-                    retorno.Mensagem = autorizando.erro.Codigo.ToString() +": "+ autorizando.erro.Descricao.ToString();
-                    return retorno;
-                }
             #endregion
 
             #region CONSULTAS
@@ -644,12 +648,6 @@ namespace webServiceCheckOk
                     VeiculoDebitoVeicular veiculoDebitoVeicular = new VeiculoDebitoVeicular(logon, senha, ip, placa, chassi, uf);
                     xmlRetorno = veiculoDebitoVeicular.Consultar();
                 }
-                // ROUBO E FURTO
-                else if (tipoConsulta.Equals("17") && (placa.Length > 0 || chassi.Length > 0))
-                {
-                    VeiculoRouboEFurto veiculorouboefurto = new VeiculoRouboEFurto(logon, senha, ip, placa, chassi);
-                    xmlRetorno = veiculorouboefurto.Consultar();
-                }
                 // PERDA TOTAL
                 else if (tipoConsulta.Equals("21") && (placa.Length > 0 || chassi.Length > 0))
                 {
@@ -667,12 +665,6 @@ namespace webServiceCheckOk
                 {
                     VeiculoLeilaoCompleto veiculoleilaocompleto = new VeiculoLeilaoCompleto(logon, senha, ip, placa, chassi, featRouboFurto, featPrecificador, featGravame, featProprietario);
                     xmlRetorno = veiculoleilaocompleto.Consultar();
-                }
-                // DECODIFICADOR DE CHASSI
-                else if (tipoConsulta.Equals("27") && (placa.Length > 0 || chassi.Length > 0))
-                {
-                    VeiculoDecodificadorDeChassi veiculodecodificadordechassi = new VeiculoDecodificadorDeChassi(logon, senha, ip, placa, chassi);
-                    xmlRetorno = veiculodecodificadordechassi.Consultar();
                 }
                 else if (tipoConsulta.Equals("24") && (placa.Length > 0 || chassi.Length > 0))
                 {
