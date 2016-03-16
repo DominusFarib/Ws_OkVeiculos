@@ -93,11 +93,11 @@ namespace webServiceCheckOk.Model.ProdutosModel
     public class AuxParametros
     {
         [XmlElement("DADOS_PESSOA")]
-        public Pessoa dadosPessoa;
+        public Pessoa dadosPessoa { get; set; }
         [XmlElement("DADOS_VEICULO")]
-        public Veiculo dadosVeiculo;
+        public Veiculo dadosVeiculo { get; set; }
         [XmlElement("FEATURES")]
-        public AuxParametrosFeatures features;
+        public AuxParametrosFeatures features { get; set; }
     }
 
     // PARAMETROS ENVIADOS PELO USUARIO
@@ -105,38 +105,38 @@ namespace webServiceCheckOk.Model.ProdutosModel
     public class AuxParametrosFeatures
     {
         [XmlElement("FEAT_ROUBOFURTO")]
-        public bool featRouboFurto;
+        public string featRouboFurto { get; set; }
 	    [XmlElement("FEAT_STF")]
-	    public bool featSTF;
+        public string featSTF { get; set; }
 	    [XmlElement("FEAT_STJ")]
-	    public bool featSTJ;
+        public string featSTJ { get; set; }
 	    [XmlElement("FEAT_TST")]
-	    public bool featTST;
+        public string featTST { get; set; }
 	    [XmlElement("FEAT_GRAVAME")]
-	    public bool featGravame;
+        public string featGravame { get; set; }
 	    [XmlElement("FEAT_PRECIFICADOR")]
-	    public bool featPrecificador;
+        public string featPrecificador { get; set; }
 	    [XmlElement("FEAT_LEILAO")]
-	    public bool featLeilao;
+        public string featLeilao { get; set; }
 	    [XmlElement("FEAT_PERDATOTAL")]
-	    public bool featPerdaTotal;
+        public string featPerdaTotal { get; set; }
 	    [XmlElement("FEAT_BASENACIONAL")]
-	    public bool featBaseNacional;
+        public string featBaseNacional { get; set; }
         [XmlElement("FEAT_PROPRIETARIOS")]
-        public bool featProprietario;
+        public string featProprietario { get; set; }
 
         public AuxParametrosFeatures(bool ftRouboFurto, bool ftSTF, bool ftSTJ, bool ftTST, bool ftGravame, bool ftPrecificador, bool ftLeilao, bool ftPerdaTotal, bool ftBaseNacional, bool ftProprietario)
         {
-            this.featRouboFurto = ftRouboFurto ? ftRouboFurto : featRouboFurto;
-            this.featSTF = ftSTF ? ftSTF : featSTF;
-            this.featSTJ = ftSTJ ? ftSTJ : featSTJ;
-            this.featTST = ftTST ? ftTST : featTST;
-            this.featGravame = ftGravame ? ftGravame : featGravame;
-            this.featPrecificador = ftPrecificador ? ftPrecificador : featPrecificador;
-            this.featLeilao = ftLeilao ? ftLeilao : featLeilao;
-            this.featPerdaTotal = ftPerdaTotal ? ftPerdaTotal : featPerdaTotal;
-            this.featBaseNacional = ftBaseNacional ? ftBaseNacional : featBaseNacional;
-            this.featProprietario = ftProprietario ? ftProprietario : featProprietario;
+            this.featRouboFurto = ftRouboFurto ? "SIM" : null;
+            this.featSTF = ftSTF ? "SIM" : null;
+            this.featSTJ = ftSTJ ? "SIM" : null;
+            this.featTST = ftTST ? "SIM" : null;
+            this.featGravame = ftGravame ? "SIM" : null;
+            this.featPrecificador = ftPrecificador ? "SIM" : null;
+            this.featLeilao = ftLeilao ? "SIM" : null;
+            this.featPerdaTotal = ftPerdaTotal ? "SIM" : null;
+            this.featBaseNacional = ftBaseNacional ? "SIM" : null;
+            this.featProprietario = ftProprietario ? "SIM" : null;
         }
 
         public AuxParametrosFeatures(){}

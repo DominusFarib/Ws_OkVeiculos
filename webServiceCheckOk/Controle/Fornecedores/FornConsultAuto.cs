@@ -20,8 +20,6 @@ namespace webServiceCheckOk.Controle.Fornecedores
         public string tipoConsulta { get; set; }
         public string urlRequisicao { get; set; }
         public string logLancamento { get; set; }
-        
-        public bool flagDocProprietario { get; set; }
 
         private string retornoWs = string.Empty;
         private string acesLogin = string.Empty;
@@ -455,27 +453,21 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 this.binNacional.Automovel.PesoBruto = arrayResposta.SelectNodes("/RESPOSTA/BINXML/PBT").Item(0).InnerText;
                 this.binNacional.Automovel.QtdEixos = arrayResposta.SelectNodes("/RESPOSTA/BINXML/EIXOS").Item(0).InnerText;
                 this.binNacional.Automovel.TipoCarroceria = arrayResposta.SelectNodes("/RESPOSTA/BINXML/TIPOCARROCERIA").Item(0).InnerText;
-
-                if (this.flagDocProprietario)
+                
+                // DOC PROPRIETARIO
+                if (arrayResposta.SelectNodes("/RESPOSTA/BINXML/PROPRIETARIO").Item(0).InnerText.Length > 0)
                 {
-                    if (arrayResposta.SelectNodes("/RESPOSTA/BINXML/PROPRIETARIO").Item(0).InnerText.Length > 0)
+                    this.binNacional.Automovel.Proprietario = new Pessoa();
+                    this.binNacional.Automovel.Proprietario.Documento = arrayResposta.SelectNodes("/RESPOSTA/BINXML/PROPRIETARIO").Item(0).InnerText;
+
+                    if (this.binNacional.Automovel.Proprietario.Documento.Length == 11)
                     {
-                        this.binNacional.Automovel.Proprietario = new Pessoa();
-                        this.binNacional.Automovel.Proprietario.Documento = arrayResposta.SelectNodes("/RESPOSTA/BINXML/PROPRIETARIO").Item(0).InnerText;
-
-                        if (this.binNacional.Automovel.Proprietario.Documento.Length == 11)
-                        {
-                            this.binNacional.Automovel.Proprietario.Tipo = "PESSOA FISICA";
-                        }
-                        else if (this.binNacional.Automovel.Proprietario.Documento.Length > 11)
-                        {
-                            this.binNacional.Automovel.Proprietario.Tipo = "PESSOA JURIDICA";
-                        }
+                        this.binNacional.Automovel.Proprietario.Tipo = "PESSOA FISICA";
                     }
-                }
-                else
-                {
-                    this.binNacional.Obs = "DOCUMENTO DO PROPRIETARIO NAO SELECIONADO";
+                    else if (this.binNacional.Automovel.Proprietario.Documento.Length > 11)
+                    {
+                        this.binNacional.Automovel.Proprietario.Tipo = "PESSOA JURIDICA";
+                    }
                 }
 
                 // ANULA VALORES EM BRANCO

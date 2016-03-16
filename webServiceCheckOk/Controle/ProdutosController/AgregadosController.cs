@@ -15,19 +15,20 @@ namespace webServiceCheckOk.Controle.ProdutosController
 {
     public class AgregadosController
     {
+        public string logServer {get; set;}
+        public string requisicaoFornecedor { get; set; }
+
         public AgregadosModel getAgregados(UsuarioModel usuario, Veiculo carro, bool isFeature = false)
         {
             // CODIGO CONSULTA = 15
             // FORNECEDORES 1=WLLM;2=MOTORCHECK;3=INFOCAR;4=CREDIFY;5=SEAPE;
             AgregadosModel agregadosDados = new AgregadosModel();
             AgregadosModel logBuffer = new AgregadosModel();
-            string logServer = string.Empty;
             string logLancamento = string.Empty;
             int codFornecedor = Verificacao.getFornecedorConsulta(15);
 
             try
             {
-                logServer = usuario.Ip;
                 logLancamento = DataBases.getLaunching();
                 string subtransacao = string.Empty;
                 subtransacao = isFeature ? "ST15" : "FT15";
@@ -35,26 +36,26 @@ namespace webServiceCheckOk.Controle.ProdutosController
                 switch (codFornecedor)
                 {
                     case 2:
-                        logServer += "|MOTORCHECK_AGREGADOS";
+                        this.logServer += "|MOTORCHECK_AGREGADOS";
                         FornMotorCheck respAgregados = new FornMotorCheck(carro);
-                        // INSERE LOG DE REQUISIÇÃO
-                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("1"), carro.Chassi);
 
                         agregadosDados = respAgregados.getAgregados();
+                        
+                        this.requisicaoFornecedor = respAgregados.urlRequisicao;
 
-                        logServer += "_" + agregadosDados.IdConsulta;
+                        this.logServer += "_" + agregadosDados.IdConsulta;
                         logBuffer = agregadosDados;
 
                         break;
                     default:
-                        logServer += "|MOTORCHECK_AGREGADOS";
+                        this.logServer += "|MOTORCHECK_AGREGADOS";
                         FornMotorCheck respDefault = new FornMotorCheck(carro);
                         // INSERE LOG DE REQUISIÇÃO
-                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("1"), carro.Chassi);
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, this.logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("1"), carro.Chassi);
 
                         agregadosDados = respDefault.getAgregados();
 
-                        logServer += "_" + agregadosDados.IdConsulta;
+                        this.logServer += "_" + agregadosDados.IdConsulta;
                         logBuffer = agregadosDados;
 
                         break;
@@ -66,9 +67,6 @@ namespace webServiceCheckOk.Controle.ProdutosController
                 {
                     serializer.Serialize(writer, logBuffer);
                 }
-
-                // INSERE LOG DE RESPOSTA
-                DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), logBuffer.ToString());
 
                 return agregadosDados;
             }

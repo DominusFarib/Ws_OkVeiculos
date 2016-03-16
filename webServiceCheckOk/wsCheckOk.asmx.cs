@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Xml.Serialization;
+using webServiceCheckOk.BaseDados;
 using webServiceCheckOk.Controle.Inteligencia;
 using webServiceCheckOk.Controle.Inteligencia.Utils;
 using webServiceCheckOk.Controle.ProdutosController;
@@ -28,13 +29,20 @@ namespace webServiceCheckOk
     public class wsCheckOk : System.Web.Services.WebService
     {
         [WebMethod]
-        public OKVeiculos OkVeiculos(string codProduto, string logon, string senha, string chassi, string uf, string placa, string renavam, string nrMotor, string nrCarroceria, string nrEixoTras, string nrTercEixo, string nrCxCambio, string crlv, string ufCrlv, string cpfCnpj, string tipoPessoa, string ddd1, string telefone1, string ddd2, string telefone2, bool featRouboFurto = false, bool featSTF = false, bool featSTJ = false, bool featTST = false, bool featGravame = false, bool featPrecificador = false, bool featLeilao = false, bool featPerdaTotal = false, bool featBaseNacional = false, bool featProprietario = false)
+        public OKVeiculos OkVeiculos(string codProduto, string logon, string senha, string chassi, string uf, string placa, string renavam, string nrMotor, string nrCarroceria, string nrEixoTras, string nrTercEixo, string nrCxCambio, string crlv, string ufCrlv, string cpfCnpj, string tipoPessoa, string ddd1, string telefone1, string ddd2, string telefone2, bool featRouboFurto = false, bool featSTF = false, bool featSTJ = false, bool featTST = false, bool featGravame = false, bool featPrecificador = false, bool featLeilao = false, bool featPerdaTotal = false, bool featBaseNacional = false, bool featDocProprietarios = false)
         {
             string ip = Context.Request.ServerVariables["REMOTE_ADDR"];
+            string logServer = ip;
+            string logLancamento = string.Empty;
+            string subTrans = string.Empty;
+            string tmpReqFornecedor = string.Empty;
+            decimal tmpLog = 0;
+            decimal tmpLog1 = 1;
 
             System.Text.RegularExpressions.Regex regLetras = new System.Text.RegularExpressions.Regex("[^A-Z]");
             System.Text.RegularExpressions.Regex regNumeros = new System.Text.RegularExpressions.Regex("[^0-9]");
 
+            XmlSerializer serializer;
             OKVeiculos retorno = new OKVeiculos();
             UsuarioModel dadosUsuario = new UsuarioModel();
             AuxParametros parametros = new AuxParametros();
@@ -50,7 +58,6 @@ namespace webServiceCheckOk
             try
             {
                 retorno.veiculo = null;
-
                 #region PARAMETROS
 
                 dadosUsuario.Logon = logon != String.Empty ? logon : null;
@@ -58,7 +65,7 @@ namespace webServiceCheckOk
 
                 parametros.dadosPessoa = new Pessoa();
                 parametros.dadosVeiculo = new Veiculo();
-                parametros.features = new AuxParametrosFeatures(featRouboFurto, featSTF, featSTJ, featTST, featGravame, featPrecificador, featLeilao, featPerdaTotal, featBaseNacional, featProprietario);
+                parametros.features = new AuxParametrosFeatures(featRouboFurto, featSTF, featSTJ, featTST, featGravame, featPrecificador, featLeilao, featPerdaTotal, featBaseNacional, featDocProprietarios);
 
                 parametros.dadosVeiculo.Chassi = chassi != String.Empty ? chassi : null;
                 parametros.dadosVeiculo.Uf = uf != String.Empty ? uf : null;
@@ -108,8 +115,6 @@ namespace webServiceCheckOk
                     retorno.Mensagem = autorizando.erro.Codigo.ToString() + ": " + autorizando.erro.Descricao.ToString();
                     return retorno;
                 }
-
-
                 // IP INTERNO X INTEGRADOR
                 if (ConfigurationManager.AppSettings["HABILITA_IP_INTERNO"] == "S")
                 {
@@ -119,16 +124,14 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // VERIFICA SE É RECEITA CHECKOK
-                if (featProprietario)
+                if (featDocProprietarios)
                 {
                     Verificacao checagem = new Verificacao();
                     string receita = checagem.getReceitaLogon(logon);
 
-                    if (!receita.Equals("56"))  featProprietario = false;
+                    if (!receita.Equals("56"))  featDocProprietarios = false;
                 }
-
                 // CHASSI
                 if (chassi.Trim().Length > 0)
                 {
@@ -140,7 +143,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // UF
                 if (uf.Trim().Length > 0)
                 {
@@ -151,7 +153,6 @@ namespace webServiceCheckOk
                         retorno.Mensagem = "UF inválida";
                     }
                 }
-
                 // PLACA
                 if (placa.Trim().Length > 0)
                 {
@@ -163,7 +164,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // RENAVAM
                 if (renavam.Trim().Length > 0)
                 {
@@ -175,7 +175,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // MOTOR
                 if (nrMotor.Trim().Length > 0)
                 {
@@ -187,7 +186,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // CRLV
                 if (crlv.Trim().Length > 0)
                 {
@@ -199,7 +197,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // UF CRLV
                 if (ufCrlv.Trim().Length > 0)
                 {
@@ -211,7 +208,6 @@ namespace webServiceCheckOk
                         return retorno;
                     }
                 }
-
                 // CPF/CNPJ
                 if (cpfCnpj.Trim().Length > 0)
                 {
@@ -239,7 +235,6 @@ namespace webServiceCheckOk
                         }
                     }
                 }
-
                 // DDD1
                 if (ddd1.Trim().Length > 0)
                 {
@@ -250,7 +245,6 @@ namespace webServiceCheckOk
                         retorno.Mensagem = "DDD1 inválido";
                     }
                 }
-
                 // TELEFONE1
                 if (telefone1.Trim().Length > 0)
                 {
@@ -261,7 +255,6 @@ namespace webServiceCheckOk
                         retorno.Mensagem = "Telefone 1 inválido";
                     }
                 }
-
                 // DDD2
                 if (ddd2.Trim().Length > 0)
                 {
@@ -272,7 +265,6 @@ namespace webServiceCheckOk
                         retorno.Mensagem = "DDD2 inválido";
                     }
                 }
-
                 // TELEFONE2
                 if (telefone2.Trim().Length > 0)
                 {
@@ -283,7 +275,6 @@ namespace webServiceCheckOk
                         retorno.Mensagem = "Telefone2 inválido";
                     }
                 }
-
                 // TIPO PESSOA
                 if (tipoPessoa.Trim().Length > 0)
                 {
@@ -360,6 +351,11 @@ namespace webServiceCheckOk
                         if (placa.Trim().Length.Equals(0) && chassi.Trim().Length.Equals(0))
                         {
                             retorno.Mensagem = "Para a consulta Gravame Simples é necessário informar uma das chaves de consulta: Placa, Chassi!";
+                            return retorno;
+                        }
+                        else if (featDocProprietarios && !featBaseNacional)
+                        {
+                            retorno.Mensagem = "Para obter a feature DOCUMENTO DE PROPRIETARIOS é preciso selecionar também a feature BASE NACIONAL";
                             return retorno;
                         }
                         break;
@@ -561,12 +557,13 @@ namespace webServiceCheckOk
 
                 #endregion
 
-
                 #endregion
 
                 #region CONSULTAS
 
-                switch(codProduto)
+                logLancamento = DataBases.getLaunching();
+
+                switch (codProduto)
                 {
                     // LEILAO SINTETICO
                     case "03":
@@ -578,7 +575,7 @@ namespace webServiceCheckOk
                     case "14":
                         dadosBaseNacional = new BinController();
                         retorno.Cabecalho = new AuxDadosConsulta("14", "BIN NACIONAL", parametros);
-                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true, true);
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
                     break;
                     // BASE ESTADUAL
                     case "16":
@@ -595,34 +592,137 @@ namespace webServiceCheckOk
                     // AGREGADOS
                     case "15":
                         dadosAgregados = new AgregadosController();
+                        subTrans = "SI15";
+
                         retorno.Cabecalho = new AuxDadosConsulta("15", "AGREGADOS", parametros);
+
                         retorno.Agregados = dadosAgregados.getAgregados(dadosUsuario, parametros.dadosVeiculo, false);
+                        // LOG REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosAgregados.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosAgregados.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Replace('\'', '\"').Substring(0, 3999) : tmpReqFornecedor.Replace('\'', '\"');
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor);
+                        
+                        logServer += dadosAgregados.logServer;
+
                         if(featPrecificador)
                         {
                             dadosPrecificador = new PrecificadorController();
                             retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, parametros.dadosVeiculo);
+
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
                         }
                     break;
                     // GRAVAME COMPLETO
                     case "19":
                         dadosGravame = new GravameController();
-                        dadosLeilao = new LeilaoController();
-                        dadosPrecificador = new PrecificadorController();
-                        dadosPerdaTotal = new SinistroController();
+                        dadosDecodChassi = new DecodChassiController();
+                        dadosBaseNacional = new BinController();
+                        subTrans = "PC19";
 
                         retorno.Cabecalho = new AuxDadosConsulta("19", "GRAVAME COMPLETO", parametros);
+                        // LOG REQUISICAO
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, chassi + "/" + placa);
+
                         retorno.Gravame = dadosGravame.getGravame(dadosUsuario, parametros.dadosVeiculo, true);
-                        retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo, true);
-                        retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, parametros.dadosVeiculo);
-                        retorno.PerdaTotal = dadosPerdaTotal.getPerdaTotal(dadosUsuario, parametros.dadosVeiculo, true);
+                        logServer += dadosGravame.logServer;
+
+                        // FAZER TRATAMENTO PARA ALTERNAR FORNECEDOR QUANTO FT DOC PROPRIETARIO = TRUE
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                        logServer += dadosBaseNacional.logServer;
+
+                        retorno.DecodChassi = dadosDecodChassi.getDecodChassi(dadosUsuario, parametros.dadosVeiculo, true);
+                        logServer += dadosDecodChassi.logServer;
+
+                        // LOG RESPOSTA
+                        serializer = new XmlSerializer(typeof(AgregadosModel));
+                        var logBuffer = retorno;
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, logBuffer);
+                        }
+                        var tmpBuffer = logBuffer.ToString();
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+
+                        // FEATURES
+                        if (featLeilao)
+                        {
+                            dadosLeilao = new LeilaoController();
+                            retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo, true);
+                            
+                            logServer = ip + "|" + dadosLeilao.logServer;
+
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT22", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT22", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
+                        }
+
+                        if(featPerdaTotal)
+                        {
+                            dadosPerdaTotal = new SinistroController();
+                            retorno.PerdaTotal = dadosPerdaTotal.getPerdaTotal(dadosUsuario, parametros.dadosVeiculo, true);
+
+                            logServer = ip + "|" + dadosPerdaTotal.logServer;
+
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT21", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT21", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
+                        }
+
+                        if (featPrecificador)
+                        {
+                            dadosPrecificador = new PrecificadorController();
+                            retorno.Precificador = dadosPrecificador.getPredificador(dadosUsuario, parametros.dadosVeiculo);
+
+                            logServer = ip + "|" + dadosPrecificador.logServer;
+
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
+                        }
+
                     break;
                     // GRAVAME SIMPLES
                     case "20":
+                        subTrans = "PC20";
                         dadosGravame = new GravameController();
                         dadosBaseNacional = new BinController();
                         retorno.Cabecalho = new AuxDadosConsulta("20", "GRAVAME SIMPLES", parametros);
                         retorno.Gravame = dadosGravame.getGravame(dadosUsuario, parametros.dadosVeiculo, false);
-                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                        logServer += dadosGravame.logServer;
+
+                        // LOG REQUISICAO
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, chassi + "/" + placa);
+
+                        // LOG RESPOSTA
+                        serializer = new XmlSerializer(typeof(AgregadosModel));
+                        var logBuffer1 = retorno;
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, logBuffer1);
+                        }
+                        var tmpBuffer1 = logBuffer1.ToString();
+                        tmpBuffer1 = tmpBuffer1.Length > 3999 ? tmpBuffer1.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer1.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer1.ToString());
+
+                        // FEATURES
+                        if (featBaseNacional)
+                        {
+                            retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                            
+                            logServer = ip + "|" + dadosBaseNacional.logServer;
+
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT14", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
+                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT14", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
+                        }
+                        
+                        // NÃO RETORNA DADOS DO PROPRIETARIO SE NÃO SELECIONAR A FEATURE
+                        if (!featDocProprietarios)
+                        {
+                            retorno.BinNacional.Automovel.Proprietario = new Pessoa();
+                            retorno.BinNacional.Obs = "DOCUMENTO DO PROPRIETARIO NAO SELECIONADO";
+                        }
+
                     break;
                     // DECODIFICADOR CHASSI
                     case "27":
@@ -758,15 +858,18 @@ namespace webServiceCheckOk
 
                 LogEstatico.setLogTitulo("ERRO VEICULO -> " + System.DateTime.Now);
                 LogEstatico.setLogTexto(ex.Message + ex.StackTrace);
-                LogEstatico.setLogTexto("Parametros: " + logon + "/" + senha + "/" + chassi + "/" + uf + "/" + placa + "/" + renavam + "/" + nrMotor + "/" + crlv + "/" + ufCrlv + "/" + cpfCnpj + "/" + ddd1 + "/" + telefone1 + "/" + ddd2 + "/" + telefone2 + "/" + tipoPessoa + "/" + featRouboFurto + "/" + featSTF + "/" + featSTJ + "/" + featTST + "/" + featGravame + "/" + featPrecificador + "/" + featLeilao + "/" + featPerdaTotal + "/" + featBaseNacional + "/" + featProprietario + "/" + codProduto);
+                LogEstatico.setLogTexto("Parametros: " + logon + "/" + senha + "/" + chassi + "/" + uf + "/" + placa + "/" + renavam + "/" + nrMotor + "/" + crlv + "/" + ufCrlv + "/" + cpfCnpj + "/" + ddd1 + "/" + telefone1 + "/" + ddd2 + "/" + telefone2 + "/" + tipoPessoa + "/" + featRouboFurto + "/" + featSTF + "/" + featSTJ + "/" + featTST + "/" + featGravame + "/" + featPrecificador + "/" + featLeilao + "/" + featPerdaTotal + "/" + featBaseNacional + "/" + featDocProprietarios + "/" + codProduto);
             }
             // TODO: CRIANDO O XML DE RETORNO
-            var serializer = new XmlSerializer(typeof(OKVeiculos));
+            serializer = new XmlSerializer(typeof(OKVeiculos));
 
             using (StringWriter writer = new EncodingTextUTF8())
             {
                 serializer.Serialize(writer, retorno);
             }
+
+            // INSERE LOG DE RESPOSTA
+            // DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), logBuffer.ToString());
 
             return retorno;
         }

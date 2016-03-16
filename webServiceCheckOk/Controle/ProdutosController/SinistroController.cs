@@ -12,21 +12,20 @@ namespace webServiceCheckOk.Controle.ProdutosController
 {
     public class SinistroController
     {
-        // BASE ESTADUAL
+        public string logServer { get; set; }
+
         public SinistroModel getPerdaTotal(UsuarioModel usuario, Veiculo carro, bool isFeature = false)
         {
             // CODIGO CONSULTA: 7
             // FORNECEDORES:    '1=CHECKAUTO;2=MOTORCHECK;3=BOA VISTA;4=CHECKPRO;5=CREDIFY'
             SinistroModel perdaTotalDados = new SinistroModel();
             SinistroModel logBuffer = new SinistroModel();
-            string logServer = string.Empty;
             string logLancamento = string.Empty;
             // PEGA O CODIGO DO FORNECEDOR DA CONSULTA
             int codFornecedor = Verificacao.getFornecedorConsulta(7);
 
             try
             {
-                logServer = usuario.Ip;
                 logLancamento = DataBases.getLaunching();
                 string subtransacao = string.Empty;
                 subtransacao = isFeature ? "FT21" : "PC7";
@@ -36,10 +35,9 @@ namespace webServiceCheckOk.Controle.ProdutosController
                     switch (codFornecedor)
                     {
                         case 4:
-                            logServer += "|CHECKPRO_PERDATOTAL";
+                            this.logServer += "|CHECKPRO_PERDATOTAL";
                             FornCheckPro binConsultAuto = new FornCheckPro(carro);
-                            // INSERE LOG DE REQUISIÇÃO
-                            DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("1"), carro.Chassi);
+
                             binConsultAuto.dadosUsuario = usuario;
                             binConsultAuto.logLancamento = logLancamento;
                             // PEGA RESPOSTA NO FORNECEDOR
@@ -55,8 +53,6 @@ namespace webServiceCheckOk.Controle.ProdutosController
                 {
                     serializer.Serialize(writer, logBuffer);
                 }
-                // INSERE LOG DE RESPOSTA
-                DataBases.InsertLog(Convert.ToDecimal(logLancamento), usuario.Logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), logBuffer.ToString());
 
                 return perdaTotalDados;
             }
@@ -65,7 +61,5 @@ namespace webServiceCheckOk.Controle.ProdutosController
                 throw e;
             }
         }
-
-
     }
 }
