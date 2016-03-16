@@ -60,7 +60,7 @@ namespace webServiceCheckOk.Controle.ProdutosController
         }
     
         // BASE NACIONAL
-        public BinModel getBinNacional(UsuarioModel usuario, Veiculo carro, bool isFeature = false)
+        public BinModel getBinNacional(UsuarioModel usuario, Veiculo carro, bool isFeature = false, bool flagDocProprietario = false)
         {
             // CODIGO CONSULTA: 1
             // FORNECEDORES:    '1=>CHECKAUTO;2=>AUTORISCO/MOTORCHECK;6=>CONSULTAUTO;7=>CHECKPRO'
@@ -75,6 +75,11 @@ namespace webServiceCheckOk.Controle.ProdutosController
                 logLancamento = DataBases.getLaunching();
                 string subtransacao = string.Empty;
                 subtransacao = isFeature ? "FT14" : "PC14";
+                // APENAS ALGUNS FORNECEDORES TRAZEM ESSA INFORMAÇÃO
+                if (flagDocProprietario && codFornecedor != 6) 
+                {
+                    codFornecedor = 6;
+                }
 
                 switch (codFornecedor)
                 {

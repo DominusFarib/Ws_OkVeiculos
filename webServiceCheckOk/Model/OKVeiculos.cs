@@ -96,7 +96,7 @@ namespace webServiceCheckOk.Model.ProdutosModel
         public Pessoa dadosPessoa { get; set; }
         [XmlElement("DADOS_VEICULO")]
         public Veiculo dadosVeiculo { get; set; }
-        [XmlElement("FEATURES")]
+        [XmlElement("FEATURES_ADICIONAIS")]
         public AuxParametrosFeatures features { get; set; }
     }
 

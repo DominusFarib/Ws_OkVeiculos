@@ -148,7 +148,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 setUrlRequisicao();
 
                 this.retornoWs = new CustomTimeOut(40000).DownloadString(this.urlRequisicao);
-
+                // this.retornoWs = "";
                 if (String.IsNullOrEmpty(this.retornoWs))
                 {
                     this.boaVistaLeilao.ErroLeilao = new Inteligencia.Erros("0", "BV: CONSULTA INDISPONIVEL");

@@ -22,16 +22,11 @@ namespace webServiceCheckOk.Controle.ProdutosController
             // CODIGO CONSULTA = 8
             // FORNECEDORES 2=>SEAP 3=>BOA VISTA 4=>CREDIFY
             GravameModel gravameDados = new GravameModel();
-            GravameModel logBuffer = new GravameModel();
-            string logLancamento = string.Empty;
             int codFornecedor = Verificacao.getFornecedorConsulta(8);
             
             try
             {
                 this.logServer = string.Empty;
-                logLancamento = DataBases.getLaunching();
-                string subtransacao = string.Empty;
-                subtransacao = flagCompleto ? "PC19" : "PC20";
 
                 switch (codFornecedor)
                 {
@@ -45,9 +40,8 @@ namespace webServiceCheckOk.Controle.ProdutosController
                             gravameDados = gravameSeape.getGravameSimples();
 
                         this.logServer += "_" + gravameDados.IdConsulta;
-                        logBuffer = gravameDados;
                        
-                        break;
+                    break;
                     case 3:
                         this.logServer += "|BOAVISTA_GRAVAME";
                         FornBoaVista gravameBV = new FornBoaVista(carro);
@@ -56,9 +50,8 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         gravameDados = gravameBV.getGravame();
 
                         this.logServer += "_" + gravameDados.CodFornecedor;
-                        logBuffer = gravameDados;
 
-                        break;
+                    break;
                     case 4:
                         this.logServer += "|CREDIFY_GRAVAME";
                         FornCredify gravameCredify = new FornCredify(carro, usuario);
@@ -66,8 +59,7 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         gravameDados = gravameCredify.getGravame();
 
                         this.logServer += "_" + gravameDados.CodFornecedor;
-                        logBuffer = gravameDados;
-                        break;
+                    break;
                     case 5:
                         this.logServer += "|TDI_GRAVAME";
                         FornTdi gravameTdi = new FornTdi(carro, usuario);
@@ -75,8 +67,7 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         gravameDados = gravameTdi.getGravame();
 
                         this.logServer += "_" + gravameTdi.idConsulta;
-                        logBuffer = gravameDados;
-                        break;
+                    break;
                     case 6:
                         this.logServer += "|SINALIZA_GRAVAME";
                         FornSinaliza gravameSinaliza = new FornSinaliza(carro, usuario, "62");
@@ -84,8 +75,7 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         gravameDados = gravameSinaliza.getGravame();
 
                         this.logServer += "_" + gravameDados.IdConsulta;
-                        logBuffer = gravameDados;
-                        break;
+                    break;
                     default:
                         this.logServer += "|SINALIZA_GRAVAME";
                         FornSinaliza gravameDefault = new FornSinaliza(carro, usuario, "62");
@@ -93,15 +83,7 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         gravameDados = gravameDefault.getGravame();
 
                         this.logServer += "_62";
-                        logBuffer = gravameDados;
-                        break;
-                }
-
-                var serializer = new XmlSerializer(typeof(GravameModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
+                    break;
                 }
 
                 return gravameDados;
