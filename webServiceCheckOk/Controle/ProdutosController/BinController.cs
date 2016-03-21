@@ -13,23 +13,18 @@ namespace webServiceCheckOk.Controle.ProdutosController
     public class BinController
     {
         public string logServer { get; set; }
+        public string requisicaoFornecedor { get; set; }
         // BASE ESTADUAL
-        public BinEstadualModel getBinEstadual(UsuarioModel usuario, Veiculo carro, bool isFeature = false)
+        public BinEstadualModel getBinEstadual(UsuarioModel usuario, Veiculo carro, string logID = "", bool isFeature = false)
         {
             // CODIGO CONSULTA: 2
             // FORNECEDORES:    '1=CHECKAUTO;2=MOTORCHECK;3=CONSULTAUTO'
             BinEstadualModel binEstadualDados = new BinEstadualModel();
-            BinEstadualModel logBuffer = new BinEstadualModel();
-            string logLancamento = string.Empty;
             // PEGA O CODIGO DO FORNECEDOR DA CONSULTA
             int codFornecedor = Verificacao.getFornecedorConsulta(2);
 
             try
             {
-                logLancamento = DataBases.getLaunching();
-                string subtransacao = string.Empty;
-                subtransacao = isFeature ? "FT16" : "PC16";
-
                 switch (codFornecedor)
                 {
                     case 3:
@@ -37,18 +32,11 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         FornConsultAuto binConsultAuto = new FornConsultAuto(carro);
 
                         binConsultAuto.dadosUsuario = usuario;
-                        binConsultAuto.logLancamento = logLancamento;
+                        binConsultAuto.logLancamento = logID;
                         // PEGA RESPOSTA NO FORNECEDOR
                         binEstadualDados = binConsultAuto.getBinEstadual();
-                        logBuffer = binEstadualDados;
+                        this.requisicaoFornecedor = binConsultAuto.urlRequisicao;
                     break;
-                }
-
-                var serializer = new XmlSerializer(typeof(BinEstadualModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
                 }
 
                 return binEstadualDados;
@@ -60,21 +48,16 @@ namespace webServiceCheckOk.Controle.ProdutosController
         }
     
         // BASE NACIONAL
-        public BinModel getBinNacional(UsuarioModel usuario, Veiculo carro, bool isFeature = false, bool flagDocProprietario = false)
+        public BinModel getBinNacional(UsuarioModel usuario, Veiculo carro, string logID = "", bool isFeature = false, bool flagDocProprietario = false)
         {
             // CODIGO CONSULTA: 1
             // FORNECEDORES:    '1=>CHECKAUTO;2=>AUTORISCO/MOTORCHECK;6=>CONSULTAUTO;7=>CHECKPRO'
             BinModel binNacionalDados = new BinModel();
-            BinModel logBuffer = new BinModel();
-            string logLancamento = string.Empty;
             // PEGA O CODIGO DO FORNECEDOR DA CONSULTA
             int codFornecedor = Verificacao.getFornecedorConsulta(1);
 
             try
             {
-                logLancamento = DataBases.getLaunching();
-                string subtransacao = string.Empty;
-                subtransacao = isFeature ? "FT14" : "PC14";
                 // APENAS ALGUNS FORNECEDORES TRAZEM ESSA INFORMAÇÃO
                 if (flagDocProprietario && codFornecedor != 6) 
                 {
@@ -88,18 +71,11 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         FornConsultAuto binConsultAuto = new FornConsultAuto(carro);
 
                         binConsultAuto.dadosUsuario = usuario;
-                        binConsultAuto.logLancamento = logLancamento;
+                        binConsultAuto.logLancamento = logID;
                         // PEGA RESPOSTA NO FORNECEDOR
                         binNacionalDados = binConsultAuto.getBinNacional();
-                        logBuffer = binNacionalDados;
+                        this.requisicaoFornecedor = binConsultAuto.urlRequisicao;
                     break;
-                }
-
-                var serializer = new XmlSerializer(typeof(BinModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
                 }
 
                 return binNacionalDados;
@@ -111,22 +87,16 @@ namespace webServiceCheckOk.Controle.ProdutosController
         }
 
         // BASE NACIONAL ROUBO E FURTO
-        public BinRouboFurtoModel getBinRouboFurto(UsuarioModel usuario, Veiculo carro, bool isFeature = false, bool flagDocProprietario = false)
+        public BinRouboFurtoModel getBinRouboFurto(UsuarioModel usuario, Veiculo carro, string logID = "", bool isFeature = false, bool flagDocProprietario = false)
         {
             // CODIGO CONSULTA: 1
             // FORNECEDORES:    '1=>CHECKAUTO 2=>AUTORISCO/MOTORCHECK 3=>AUTORISCO/GRUPOTDI 6=>CONSULTAAUTO'
             BinRouboFurtoModel binRouboFurtoDados = new BinRouboFurtoModel();
-            BinRouboFurtoModel logBuffer = new BinRouboFurtoModel();
-            string logLancamento = string.Empty;
             // PEGA O CODIGO DO FORNECEDOR DA CONSULTA
             int codFornecedor = Verificacao.getFornecedorConsulta(5);
 
             try
             {
-                logLancamento = DataBases.getLaunching();
-                string subtransacao = string.Empty;
-                subtransacao = isFeature ? "FT17" : "PC17";
-
                 switch (codFornecedor)
                 {
                     case 2:
@@ -134,18 +104,11 @@ namespace webServiceCheckOk.Controle.ProdutosController
                         FornConsultAuto binConsultAuto = new FornConsultAuto(carro);
                         
                         binConsultAuto.dadosUsuario = usuario;
-                        binConsultAuto.logLancamento = logLancamento;
+                        binConsultAuto.logLancamento = logID;
                         // PEGA RESPOSTA NO FORNECEDOR
                         binRouboFurtoDados = binConsultAuto.getBinRouboFurto();
-                        logBuffer = binRouboFurtoDados;
-                        break;
-                }
-
-                var serializer = new XmlSerializer(typeof(BinRouboFurtoModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
+                        this.requisicaoFornecedor = binConsultAuto.urlRequisicao;
+                    break;
                 }
 
                 return binRouboFurtoDados;

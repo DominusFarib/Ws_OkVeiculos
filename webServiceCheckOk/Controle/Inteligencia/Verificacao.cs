@@ -149,10 +149,12 @@ namespace webServiceCheckOk.Controle.Inteligencia
             try
             {
                 leitorDados = comandoSQL.ExecuteReader();
+                
                 if (leitorDados.Read())
-                {
                     retorno = int.Parse(leitorDados["VALOR"].ToString());
-                }
+                else
+                    retorno = 0;
+
                 db.Conn.Dispose();
                 db.Conn.Close();
 

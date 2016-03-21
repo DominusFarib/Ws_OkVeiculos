@@ -16,50 +16,33 @@ namespace webServiceCheckOk.Controle.ProdutosController
     public class DecodChassiController
     {
         public string logServer { get; set; }
-
+        public string requisicaoFornecedor { get; set; }
         public DecodChassiModel getDecodChassi(UsuarioModel usuario, Veiculo carro, bool isFeature = false)
         {
             // CODIGO CONSULTA = 4
             // FORNECEDORES 1=CHECKAUTO;2=AUTORISCO;3=TECNOBANK;4=CREDIFY
             DecodChassiModel decodChassiDados = new DecodChassiModel();
-            DecodChassiModel logBuffer = new DecodChassiModel();
-            string logLancamento = string.Empty;
+            // PEGA O CODIGO DO FORNECEDOR DA CONSULTA
             int codFornecedor = Verificacao.getFornecedorConsulta(4);
 
             try
             {
-                logLancamento = DataBases.getLaunching();
-                string subtransacao = string.Empty;
-                subtransacao = isFeature ? "PC27" : "FT27";
-
                 switch (codFornecedor)
                 {
                     case 3:
                         this.logServer += "|TECNOBANK_DECODCHASSI";
                         FornTecnoBank respDecodChassi = new FornTecnoBank(carro);
-
+                        // PEGA RESPOSTA NO FORNECEDOR
                         decodChassiDados = respDecodChassi.getDecodChassi();
-
-                        //this.logServer += "_" + decodChassiDados.IdConsulta;
-                        logBuffer = decodChassiDados;
-
-                        break;
+                        this.requisicaoFornecedor = respDecodChassi.strRequisicao;
+                    break;
                     default:
                         this.logServer += "|TECNOBANK_DECODCHASSI";
                         FornTecnoBank respDecodChassiDefault = new FornTecnoBank(carro);
-
+                        // PEGA RESPOSTA NO FORNECEDOR
                         decodChassiDados = respDecodChassiDefault.getDecodChassi();
-
-                        //this.logServer += "_" + decodChassiDados.IdConsulta;
-                        logBuffer = decodChassiDados;
-                        break;
-                }
-
-                var serializer = new XmlSerializer(typeof(DecodChassiModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
+                        this.requisicaoFornecedor = respDecodChassiDefault.strRequisicao;
+                    break;
                 }
 
                 return decodChassiDados;

@@ -82,7 +82,7 @@ namespace webServiceCheckOk.BaseDados
                                 :DOCTYPE, 
                                 :DOCNO, 
                                 :OPERDATE, 
-                                :OPERDATE, 
+                                :OPERTIME, 
                                 :SERVERID, 
                                 :SESSIONNO, 
                                 :SEQNO, 
@@ -92,66 +92,69 @@ namespace webServiceCheckOk.BaseDados
                                 :BUFFER)";
                         comandoSQL.CommandType = System.Data.CommandType.Text;
 
-                        comandoSQL.Parameters.Add("LAUNCHING", OracleDbType.Int32, 10, "LAUNCHING", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("LOGON", OracleDbType.Varchar2, 50,"LOGON", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("TRANSACTION", OracleDbType.Varchar2, 5, "TRANSACTION", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("SUBTRANSACTION", OracleDbType.Varchar2, 5, "SUBTRANSACTION", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("DOCTYPE", OracleDbType.Varchar2, 5, "DOCTYPE", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("DOCNO", OracleDbType.Varchar2, 5, "DOCNO", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("OPERDATE", OracleDbType.Varchar2, 5, "OPERDATE", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("SERVERID", OracleDbType.Varchar2, 5, "SERVERID", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("SESSIONNO", OracleDbType.Varchar2, 5, "SESSIONNO", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("SEQNO", OracleDbType.Varchar2, 5, "SEQNO", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("COMMANDRESULT", OracleDbType.Varchar2, 5, "COMMANDRESULT", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("HASRESTRICTION", OracleDbType.Varchar2, 5, "HASRESTRICTION", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("ISREQUEST", OracleDbType.Varchar2, 5, "ISREQUEST", ParameterDirection.Input);
-                        comandoSQL.Parameters.Add("BUFFER", OracleDbType.Varchar2, 5, "BUFFER", ParameterDirection.Input);
-                        
+                        comandoSQL.Parameters.Add("LAUNCHING", OracleDbType.Varchar2, 6, "LAUNCHING", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("LOGON", OracleDbType.Varchar2, 50, "LOGON", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("TRANSACTION", OracleDbType.Varchar2, 6, "TRANSACTION", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("SUBTRANSACTION", OracleDbType.Varchar2, 6, "SUBTRANSACTION", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("DOCTYPE", OracleDbType.Varchar2, 2, "DOCTYPE", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("DOCNO", OracleDbType.Varchar2, 16, "DOCNO", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("OPERDATE", OracleDbType.Date, "OPERDATE", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("OPERTIME", OracleDbType.Date, "OPERTIME", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("SERVERID", OracleDbType.Varchar2, 500, "SERVERID", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("SESSIONNO", OracleDbType.Decimal, 10, "SESSIONNO", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("SEQNO", OracleDbType.Decimal, 10, "SEQNO", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("COMMANDRESULT", OracleDbType.Decimal, 10, "COMMANDRESULT", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("HASRESTRICTION", OracleDbType.Decimal, 2, "HASRESTRICTION", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("ISREQUEST", OracleDbType.Decimal, 2, "ISREQUEST", ParameterDirection.Input);
+                        comandoSQL.Parameters.Add("BUFFER", OracleDbType.Varchar2, 4000, "BUFFER", ParameterDirection.Input);
+
+                        var nulo = System.DBNull.Value;
+
                         comandoSQL.Parameters[0].Value = (decimal)LAUNCHING;
 
-                        if ((LOGON == null))
-                            comandoSQL.Parameters[1].Value = System.DBNull.Value;
+                        if (String.IsNullOrEmpty(LOGON))
+                            comandoSQL.Parameters[1].Value = nulo;
                         else
                             comandoSQL.Parameters[1].Value = (string)(LOGON);
-                        
-                        if ((TRANSACTION == null))
-                            comandoSQL.Parameters[2].Value = System.DBNull.Value;
+
+                        if (String.IsNullOrEmpty(TRANSACTION))
+                            comandoSQL.Parameters[2].Value = nulo;
                         else
                             comandoSQL.Parameters[2].Value = ((string)(TRANSACTION));
-                        
-                        if ((SUBTRANSACTION == null))
-                            comandoSQL.Parameters[3].Value = System.DBNull.Value;
+
+                        if (String.IsNullOrEmpty(SUBTRANSACTION))
+                            comandoSQL.Parameters[3].Value = nulo;
                         else
                             comandoSQL.Parameters[3].Value = ((string)(SUBTRANSACTION));
-                        
-                        if ((DOCTYPE == null))
-                            comandoSQL.Parameters[4].Value = System.DBNull.Value;
+
+                        if (String.IsNullOrEmpty(DOCTYPE))
+                            comandoSQL.Parameters[4].Value = nulo;
                         else
                             comandoSQL.Parameters[4].Value = ((string)(DOCTYPE));
-                        
-                        if ((DOCNO == null))
-                            comandoSQL.Parameters[5].Value = System.DBNull.Value;
+
+                        if (String.IsNullOrEmpty(DOCNO))
+                            comandoSQL.Parameters[5].Value = nulo;
                         else
                             comandoSQL.Parameters[5].Value = ((string)(DOCNO));
 
                         comandoSQL.Parameters[6].Value = ((System.DateTime)(OPERDATE));
+                        comandoSQL.Parameters[7].Value = ((System.DateTime)(OPERDATE));
 
-                        if ((SERVERID == null))
+                        if (String.IsNullOrEmpty(SERVERID))
                             throw new System.ArgumentNullException("SERVERID");
                         else
-                            comandoSQL.Parameters[7].Value = ((string)(SERVERID));
+                            comandoSQL.Parameters[8].Value = ((string)(SERVERID));
 
-                        comandoSQL.Parameters[8].Value = ((decimal)(SESSIONNO));
-                        comandoSQL.Parameters[9].Value = ((decimal)(SEQNO));
-                        comandoSQL.Parameters[10].Value = ((decimal)(COMMANDRESULT));
-                        comandoSQL.Parameters[11].Value = ((decimal)(HASRESTRICTION));
-                        comandoSQL.Parameters[12].Value = ((decimal)(ISREQUEST));
+                        comandoSQL.Parameters[9].Value = ((decimal)(SESSIONNO));
+                        comandoSQL.Parameters[10].Value = ((decimal)(SEQNO));
+                        comandoSQL.Parameters[11].Value = ((decimal)(COMMANDRESULT));
+                        comandoSQL.Parameters[12].Value = ((decimal)(HASRESTRICTION));
+                        comandoSQL.Parameters[13].Value = ((decimal)(ISREQUEST));
 
                         if ((BUFFER == null))
-                            comandoSQL.Parameters[13].Value = System.DBNull.Value;
+                            comandoSQL.Parameters[14].Value = nulo;
                         else
-                            comandoSQL.Parameters[13].Value = ((string)(BUFFER));
-
+                            comandoSQL.Parameters[14].Value = ((string)(BUFFER));
 
                         if (((comandoSQL.Connection.State & System.Data.ConnectionState.Open) != System.Data.ConnectionState.Open))
                             comandoSQL.Connection.Open();
@@ -175,7 +178,6 @@ namespace webServiceCheckOk.BaseDados
                         return retorno;
                     }
                 }
-
                 catch (Exception e)
                 {
                     LogEstatico.setLogTitulo("ERRO INSERT LOG -> " + System.DateTime.Now);

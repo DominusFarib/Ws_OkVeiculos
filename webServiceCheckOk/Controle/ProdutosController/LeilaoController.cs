@@ -14,82 +14,86 @@ namespace webServiceCheckOk.Model.ProdutosModel
     public class LeilaoController
     {
         public string logServer { get; set; }
+        public string requisicaoFornecedor { get; set; }
 
-        public LeilaoModel getLeilao(UsuarioModel usuario, Veiculo carro, bool isFeature = false, string logFeature = "")
+        public LeilaoModel getLeilao(UsuarioModel usuario, Veiculo carro, int codProduto = 6, string logFeature = "")
         {
-            // CODIGO CONSULTA: 6
-            // FORNECEDORES: 1=CHECKAUTO;2=AUTORISCO;3=BOAVISTA;6=MOTORCHECK;7=ABSOLUTA;8=SEAPE;9=TDB
+            /*
+             PRODUTOS:
+                3 = LEILÃO SINTÉTICO
+                6 = VEICULO LEILAO SIMPLES
+                9 = VEICULO LEILAO SINTETICO
+                11 = VEICULOLEILAOCOMPLETO
+                20 = LEILAO HIST TDB
+                21 = LEILAO HIST CFY
+                25 = LEILAO FORNECEDORES
+            */
             LeilaoModel leilaoDados = new LeilaoModel();
-            LeilaoModel logBuffer = new LeilaoModel();
+            int codFornecedor = 0;
 
-            string logLancamento = string.Empty;
-            string subtransacao = string.Empty;
-
-            int codFornecedor = Verificacao.getFornecedorConsulta(6);
-
-            try
+            if (codProduto == 3)
             {
-                logLancamento = String.IsNullOrEmpty(logFeature) ? DataBases.getLaunching() : logFeature;
-                
-                subtransacao = isFeature ? "FT22" : "PC22";
-
-                switch (codFornecedor)
+                // 1º CHECA A CREDIFY SE ESTA HABILITADA PARA HISTORICO DE LEILAO
+                codFornecedor = Verificacao.getFornecedorConsulta(21);
+                if(codFornecedor == 1)
                 {
-                    case 9:
-                        this.logServer += "|TDB_LEILAO";
-                        FornTdb leilaoTDB = new FornTdb(carro,"1");
+                    this.logServer += "|CHECKOK_246";
+                    FornCredify leilaoCredify = new FornCredify(carro, usuario);
 
-                        leilaoDados = leilaoTDB.getLeilao();
-
-                        this.logServer += "_" + leilaoDados.CodFornecedor;
-                        logBuffer = leilaoDados;
-                    break;
+                    leilaoDados = leilaoCredify.getLeilao();
                     
-                    case 3:
-                        this.logServer += "|BOAVISTA_LEILAO";
-                        FornBoaVista leilaoBV = new FornBoaVista(carro);
-                        leilaoBV.codConsulta = "780";
+                    this.logServer += "_" + leilaoDados.CodFornecedor;
+                    this.requisicaoFornecedor = leilaoCredify.xmlRequisicao;
 
-                        leilaoDados = leilaoBV.getLeilao();
+                    // SE A CREDIFY TROUXER RESULTADOS COMPLETA AS INFORMAÇÕES COM A TBD
+                    if (leilaoDados.MsgLeilao.Codigo != "1")
+                    {
 
-                        this.logServer += "_" + leilaoDados.CodFornecedor;
-                        logBuffer = leilaoDados;
-                    break;
-                /*
-                case 4:
-                    this.logServer += "|CREDIFY_GRAVAME";
-                    FornCredify gravameCredify = new FornCredify(carro, usuario);
-
-                    binNacionalDados = gravameCredify.getGravame();
-
-                    this.logServer += "_" + binNacionalDados.CodFornecedor;
-                    logBuffer = binNacionalDados;
-                    break;
-                case 5:
-                    this.logServer += "|TDI_GRAVAME";
-                    FornTdi gravameTdi = new FornTdi(carro, usuario);
-
-                    binNacionalDados = gravameTdi.getGravame();
-
-                    this.logServer += "_" + gravameTdi.idConsulta;
-                    logBuffer = binNacionalDados;
-                    break;
-                */
+ 
+                    }
                 }
-
-                var serializer = new XmlSerializer(typeof(LeilaoModel));
-
-                using (StringWriter writer = new EncodingTextUTF8())
-                {
-                    serializer.Serialize(writer, logBuffer);
-                }
-
-                return leilaoDados;
             }
-            catch (Exception e)
+            else if (codProduto == 6)
             {
-                throw e;
+                // CODIGO CONSULTA: 6
+                // FORNECEDORES: 1=CHECKAUTO;2=AUTORISCO;3=BOAVISTA;6=MOTORCHECK;7=ABSOLUTA;8=SEAPE;9=TDB
+
+                codFornecedor = Verificacao.getFornecedorConsulta(6);
+
+                try
+                {
+                    switch (codFornecedor)
+                    {
+                        case 9:
+                            this.logServer += "|TDB_LEILAO";
+                            FornTdb leilaoTDB = new FornTdb(carro, "1");
+
+                            leilaoDados = leilaoTDB.getLeilao();
+
+                            this.logServer += "_" + leilaoDados.CodFornecedor;
+                            this.requisicaoFornecedor = leilaoTDB.urlRequisicao;
+                            break;
+
+                        case 3:
+                            this.logServer += "|BOAVISTA_LEILAO";
+                            FornBoaVista leilaoBV = new FornBoaVista(carro);
+                            leilaoBV.codConsulta = "780";
+
+                            leilaoDados = leilaoBV.getLeilao();
+
+                            this.logServer += "_" + leilaoDados.CodFornecedor;
+                            this.requisicaoFornecedor = leilaoBV.urlRequisicao;
+                            break;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
+            return leilaoDados;
         }
+    
     }
 }

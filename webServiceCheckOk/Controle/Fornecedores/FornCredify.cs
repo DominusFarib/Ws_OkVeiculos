@@ -6,6 +6,7 @@ using System.Web;
 using System.Xml;
 using webServiceCheckOk.BaseDados;
 using webServiceCheckOk.Controle.Inteligencia;
+using webServiceCheckOk.Controle.Inteligencia.Utils;
 using webServiceCheckOk.Model;
 using webServiceCheckOk.Model.ProdutosModel;
 
@@ -14,14 +15,17 @@ namespace webServiceCheckOk.Controle.Fornecedores
     public class FornCredify
     {
         private GravameModel credifyGravame;
+        private LeilaoModel credifyLeilao;
         private Veiculo carro;
         private List<Veiculo> dadosCarro;
         private List<GravameModel> dadosGravame;
         private UsuarioModel usuario;
-        
+        private Veiculo tempCarro;
+        private LeilaoModel tempLeilao;
+
         private string tipoPessoa = string.Empty;
         private string docPessoa = string.Empty;
-        private string strRequisicao = string.Empty;
+        public string xmlRequisicao = string.Empty;
         private string retornoWs = string.Empty;
         public string idConsulta { get; set; }
 
@@ -43,7 +47,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 this.idConsulta = "241";
                 setStrRequisicao();
                 WsCredify.serverconsulta wsCredify = new WsCredify.serverconsulta();
-                this.retornoWs = wsCredify.Consultar(this.strRequisicao);
+                this.retornoWs = wsCredify.Consultar(this.xmlRequisicao);
                 // XML PADRÃO CREDIFY
                 //this.retornoWs = "	<XML>	<CONSULTA>		<CODIGORESPOSTA>1195239</CODIGORESPOSTA>		<DATAHORA>04/06/2013 10:30:25</DATAHORA>		<LOGON>WS00000001</LOGON>		<IDCONSULTA>149</IDCONSULTA>	</CONSULTA>	<RESPOSTA><GRAVAME><FINANCIADO>ALEXANDRE PASCHOALOTTO PENHA</FINANCIADO><CPF_CNPJ>00026628162877</CPF_CNPJ><PLACA>BOX8846</PLACA><CHASSI>9BGLK19BRRB313127</CHASSI><RENAVAM>622196626</RENAVAM><SITUACAO>VEICULO TEVE GRAVAME BAIXADO PELO AGENTE FINANCEIRO</SITUACAO><DATA>28/06/2005</DATA><NOME_AGENTE>BC ABN AMRO REAL S A</NOME_AGENTE><CNPJ_AGENTE>33066408000115</CNPJ_AGENTE><UF_GRAVAME>SP</UF_GRAVAME><DATA_CONSULTA>04/06/2013 13:30:53</DATA_CONSULTA></GRAVAME></RESPOSTA></XML>";
                 //this.retornoWs = "<XML><CONSULTA>	<CODIGORESPOSTA>1195182</CODIGORESPOSTA><DATAHORA>04/06/2013 10:24:09</DATAHORA>	<LOGON>WS00000001</LOGON>		<IDCONSULTA>149</IDCONSULTA>	</CONSULTA>	<RESPOSTA><GRAVAME></GRAVAME></RESPOSTA></XML>";            
@@ -128,6 +132,88 @@ namespace webServiceCheckOk.Controle.Fornecedores
             return this.credifyGravame;
         }
 
+        // LEILAO RESPOSTA
+        public LeilaoModel getLeilao()
+        {
+            XmlDocument arrayResposta = new XmlDocument();
+            Veiculo tempCarro;
+            LeilaoModel tempLeilao;
+
+            try
+            {
+                this.idConsulta = "246";
+                setStrRequisicao();
+                WsCredify.serverconsulta wsCredify = new WsCredify.serverconsulta();
+                this.retornoWs = wsCredify.Consultar(this.xmlRequisicao);
+                // XML PADRÃO CREDIFY
+                // this.retornoWs = "";   
+                
+                if(String.IsNullOrEmpty(this.retornoWs))
+                {
+                    this.credifyLeilao.ErroLeilao = new Erros("2", "CRFY: INFORMACAO NAO ENCONTRADA NAS BASES CONSULTADAS");
+                    return this.credifyLeilao;
+                }
+                // OCORRENCIAS DE HISTORICO DE LEILÕES
+                XmlNodeList listaOcorrencias = arrayResposta.SelectNodes(@"XML/RESPOSTA/LEILAO/*[contains(name(),'REGISTRO_')]");
+
+                arrayResposta.LoadXml(this.retornoWs);
+
+                try
+                {
+                    this.credifyLeilao.CodFornecedor = "_" + arrayResposta.SelectNodes("/XML/CONSULTA/CODIGORESPOSTA").Item(0).InnerText.PadLeft(10, '0');
+                }
+                catch
+                {
+                    this.credifyLeilao.CodFornecedor = "_ERRO";
+                }
+                // ERRO NO FORNECEDOR
+                if (arrayResposta.SelectNodes("/XML/RESPOSTA/ERRO").Count > 0)
+                {
+                    this.credifyLeilao.ErroLeilao = new Erros("0", "ERR CRFY: CONSULTA INDISPONIVEL");
+                    return this.credifyLeilao;
+                }
+                // INFOMACAO NAO ENCONTRADA NAS BASES CONSULTADAS
+                if (listaOcorrencias.Count <= 0)
+                {
+                    this.credifyLeilao.MsgLeilao = new Erros("2", "CRFY: INFORMACAO NAO ENCONTRADA NAS BASES CONSULTADAS");
+                    return this.credifyLeilao;
+                }
+
+                this.credifyLeilao.MsgLeilao = new Erros("1", "CONSTA REGISTRO DE LEILAO PARA O VEICULO INFORMADO");
+
+                foreach (XmlNode node in listaOcorrencias)
+                {
+                    this.tempLeilao.Leiloeiro = node.SelectSingleNode("LEILOEIRO").InnerText;
+                    this.tempLeilao.Lote = node.SelectSingleNode("LOTE").InnerText;
+
+                    this.tempCarro.Marca = node.SelectSingleNode("MARCA").InnerText;
+                    this.tempCarro.Modelo = node.SelectSingleNode("MODELO").InnerText;
+                    this.tempCarro.AnoModelo = node.SelectSingleNode("ANOMODELO").InnerText;
+                    this.tempCarro.Placa = node.SelectSingleNode("PLACA").InnerText;
+                    this.tempCarro.Chassi = node.SelectSingleNode("CHASSI").InnerText;
+                    this.tempCarro.Renavam = node.SelectSingleNode("RENAVAM").InnerText;
+                    this.tempCarro.Cor = node.SelectSingleNode("COR").InnerText;
+                    this.tempCarro.Combustivel = node.SelectSingleNode("COMBUSTIVEL").InnerText;
+                    this.tempCarro.Categoria = node.SelectSingleNode("DS_CATEG_VEIC").InnerText;
+
+                    this.tempLeilao.CondicaoGeral = node.SelectSingleNode("ESTADOGERAL").InnerText;
+                    this.tempLeilao.DataLeilao = node.SelectSingleNode("DATALEILAO").InnerText;
+                    this.tempLeilao.Comitente = node.SelectSingleNode("COMITENTE").InnerText;
+                    
+                    // ANULA VALORES EM BRANCO
+                    this.tempCarro = Util.unSetDadosVazios<Veiculo>(this.tempCarro);
+                    this.tempLeilao = Util.unSetDadosVazios<LeilaoModel>(this.tempLeilao);
+
+                    this.credifyLeilao.HistoricoLeilao.Add(new AuxHistoricoLeiloes(this.tempCarro, this.tempLeilao));
+                }
+            }
+            catch (Exception e)
+            {
+                this.credifyLeilao.ErroLeilao = new Erros("0", "Falha ao acessar fornecedor: " + e.ToString());
+            }
+
+            return this.credifyLeilao;
+        }
 
         // MONTA A URL PARA OBTER O XML DO FORNECEDOR
         public void setStrRequisicao()
@@ -159,26 +245,33 @@ namespace webServiceCheckOk.Controle.Fornecedores
 
             XmlElement consulta = xDoc.CreateElement("CONSULTA");
             XmlElement IDConsulta = xDoc.CreateElement("IDCONSULTA");
-            XmlElement TipoPessoa = xDoc.CreateElement("TIPOPESSOA");
-            XmlElement CpfCnpj = xDoc.CreateElement("CPFCNPJ");
             XmlElement Chassi = xDoc.CreateElement("CHASSI");
 
-
-            consulta.AppendChild(IDConsulta);
-            consulta.AppendChild(TipoPessoa);
-            consulta.AppendChild(CpfCnpj);
             consulta.AppendChild(IDConsulta);
             consulta.AppendChild(Chassi);
 
             IDConsulta.InnerText = this.idConsulta;
             Chassi.InnerText = this.carro.Chassi;
-            TipoPessoa.InnerText = this.tipoPessoa;
-            CpfCnpj.InnerText = this.docPessoa;
-            IDConsulta.InnerText = this.idConsulta;
+
+            if (this.idConsulta == "246")
+            {
+                XmlElement xmlPlaca = xDoc.CreateElement("PLACA");
+                consulta.AppendChild(xmlPlaca);
+                xmlPlaca.InnerText = this.carro.Placa;
+            }
+            else
+            {
+                XmlElement TipoPessoa = xDoc.CreateElement("TIPOPESSOA");
+                XmlElement CpfCnpj = xDoc.CreateElement("CPFCNPJ");
+                consulta.AppendChild(TipoPessoa);
+                consulta.AppendChild(CpfCnpj);
+                TipoPessoa.InnerText = this.tipoPessoa;
+                CpfCnpj.InnerText = this.docPessoa;
+            }
 
             raiz.AppendChild(consulta);
 
-            this.strRequisicao = xDoc.InnerXml;
+            this.xmlRequisicao = xDoc.InnerXml;
         }
 
         public string[] getLogonSenha(string logon)

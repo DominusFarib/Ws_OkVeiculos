@@ -575,30 +575,142 @@ namespace webServiceCheckOk
                 {
                     // LEILAO SINTETICO
                     case "03":
+                        #region LEILAO SINTETICO
                         dadosLeilao = new LeilaoController();
+                        dadosAgregados = new AgregadosController();
+                        dadosPerdaTotal = new SinistroController();
+
+                        subTrans = "PC03";
                         retorno.Cabecalho = new AuxDadosConsulta("03", "LEILAO SINTETICO", parametros);
-                        retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo);
+                        // RESPOSTA FORNECEDOR
+                        retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo,3);
+                        
+                        // BILHETA  REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosLeilao.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosLeilao.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Replace('\'', '\"').Replace('\t', ' ').Replace('\n', ' ');
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Substring(0, 3999) : tmpReqFornecedor;
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor.ToString());
+
+                        logServer += dadosLeilao.logServer;
+
+                        // RESPOSTA AGREGADOS
+                        retorno.Agregados = dadosAgregados.getAgregados(dadosUsuario, parametros.dadosVeiculo, false);
+                        logServer += dadosAgregados.logServer;
+
+                        // RESPOSTA SINISTRO: PERDA TOTAL
+                        retorno.PerdaTotal = dadosPerdaTotal.getPerdaTotal(dadosUsuario, parametros.dadosVeiculo, true);
+                        logServer = ip + "|" + dadosPerdaTotal.logServer;
+                    
+                        // BILHETA RESPOSTA
+                        serializer = new XmlSerializer(typeof(OKVeiculos));
+
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
+                        }
+
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+
+
+                        #endregion
                     break;
                     // BASE NACIONAL
                     case "14":
+                        #region BASE NACIONAL
                         dadosBaseNacional = new BinController();
+                        subTrans = "PC14";
                         retorno.Cabecalho = new AuxDadosConsulta("14", "BIN NACIONAL", parametros);
-                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                        // RESPOSTA FORNECEDOR
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, logLancamento);
+                        // BILHETA  REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosBaseNacional.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosBaseNacional.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Replace('\'', '\"').Replace('\t', ' ').Replace('\n', ' ');
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Substring(0, 3999) : tmpReqFornecedor;
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor.ToString());
+
+                        logServer += dadosBaseNacional.logServer;
+                        // BILHETA RESPOSTA
+                        serializer = new XmlSerializer(typeof(OKVeiculos));
+
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
+                        }
+
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+                        #endregion
                     break;
                     // BASE ESTADUAL
                     case "16":
+                        #region BASE ESTADUAL
                         dadosBaseEstadual = new BinController();
+                        subTrans = "PC16";
                         retorno.Cabecalho = new AuxDadosConsulta("16", "BIN ESTADUAL", parametros);
-                        retorno.BinEstadual = dadosBaseEstadual.getBinEstadual(dadosUsuario, parametros.dadosVeiculo, true);
+                        // RESPOSTA FORNECEDOR
+                        retorno.BinEstadual = dadosBaseEstadual.getBinEstadual(dadosUsuario, parametros.dadosVeiculo, logLancamento, false);
+                        // BILHETA  REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosBaseEstadual.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosBaseEstadual.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Replace('\'', '\"').Replace('\t', ' ').Replace('\n', ' ');
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Substring(0, 3999) : tmpReqFornecedor;
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor.ToString());
+
+                        logServer += dadosBaseEstadual.logServer;
+                        // BILHETA RESPOSTA
+                        serializer = new XmlSerializer(typeof(OKVeiculos));
+
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
+                        }
+
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+
+                        #endregion
                     break;
                     // BASE NACIONAL ROUBO E FURTO - BINRF
                     case "17":
+                        #region BASE NACIONAL ROUBO E FURTO - BINRF
                         dadosBaseNacional = new BinController();
+                        subTrans = "PC17";
+
                         retorno.Cabecalho = new AuxDadosConsulta("17", "BIN ROUBO E FURTO", parametros);
-                        retorno.BinRouboFurto = dadosBaseNacional.getBinRouboFurto(dadosUsuario, parametros.dadosVeiculo, false, true);
+                        // RESPOSTA FORNECEDOR
+                        retorno.BinRouboFurto = dadosBaseNacional.getBinRouboFurto(dadosUsuario, parametros.dadosVeiculo, logLancamento, false, true);
+                        // BILHETA  REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosBaseNacional.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosBaseNacional.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Replace('\'', '\"').Substring(0, 3999) : tmpReqFornecedor.Replace('\'', '\"');
+                        
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor);
+
+                        logServer += dadosBaseNacional.logServer;
+                        // BILHETA RESPOSTA
+                        serializer = new XmlSerializer(typeof(OKVeiculos));
+
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
+                        }
+
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+                        #endregion
                     break;
                     // AGREGADOS
                     case "15":
+                        #region AGREGADOS
                         dadosAgregados = new AgregadosController();
                         subTrans = "SI15";
 
@@ -614,12 +726,13 @@ namespace webServiceCheckOk
                         
                         // BILHETA RESPOSTA
                         serializer = new XmlSerializer(typeof(OKVeiculos));
-                        var logBuffer = retorno;
+
                         using (StringWriter writer = new EncodingTextUTF8())
                         {
-                            serializer.Serialize(writer, logBuffer);
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
                         }
-                        tmpBuffer = logBuffer.ToString();
+                        
                         tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
 
                         DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
@@ -632,9 +745,11 @@ namespace webServiceCheckOk
                             DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, "-");
                             DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT74", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
                         }
+                        #endregion
                     break;
                     // GRAVAME COMPLETO
                     case "19":
+                        #region GRAVAME COMPLETO
                         dadosGravame = new GravameController();
                         dadosDecodChassi = new DecodChassiController();
                         dadosBaseNacional = new BinController();
@@ -648,7 +763,7 @@ namespace webServiceCheckOk
                         logServer += dadosGravame.logServer;
 
                         // RESPOSTA BIN NACIONAL
-                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true, featDocProprietarios ? true : false);
+                        retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, logLancamento, true, featDocProprietarios ? true : false);
                         logServer += dadosBaseNacional.logServer;
                         // RESPOSTA DECOD CHASSI
                         retorno.DecodChassi = dadosDecodChassi.getDecodChassi(dadosUsuario, parametros.dadosVeiculo, true);
@@ -656,12 +771,13 @@ namespace webServiceCheckOk
 
                         // BILHETA RESPOSTA
                         serializer = new XmlSerializer(typeof(OKVeiculos));
-                        var lgBuffer = retorno;
+
                         using (StringWriter writer = new EncodingTextUTF8())
                         {
-                            serializer.Serialize(writer, lgBuffer);
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
                         }
-                        tmpBuffer = lgBuffer.ToString();
+
                         tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
 
                         DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
@@ -707,9 +823,11 @@ namespace webServiceCheckOk
                             DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", "FT68", "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, "-");
                         }
 
+                        #endregion
                     break;
                     // GRAVAME SIMPLES
                     case "20":
+                        #region GRAVAME SIMPLES
                         subTrans = "PC20";
                         dadosGravame = new GravameController();
                         dadosBaseNacional = new BinController();
@@ -723,20 +841,21 @@ namespace webServiceCheckOk
 
                         // BILHETA RESPOSTA
                         serializer = new XmlSerializer(typeof(OKVeiculos));
-                        var logBuffer1 = retorno;
+                        
                         using (StringWriter writer = new EncodingTextUTF8())
                         {
-                            serializer.Serialize(writer, logBuffer1);
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
                         }
-                        var tmpBuffer1 = logBuffer1.ToString();
-                        tmpBuffer1 = tmpBuffer1.Length > 3999 ? tmpBuffer1.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer1.Replace('\'', '\"');
 
-                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer1.ToString());
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
 
                         // FEATURES
                         if (featBaseNacional)
                         {
-                            retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, true);
+                            retorno.BinNacional = dadosBaseNacional.getBinNacional(dadosUsuario, parametros.dadosVeiculo, logLancamento, true);
                             
                             logServer = ip + "|" + dadosBaseNacional.logServer;
 
@@ -758,12 +877,37 @@ namespace webServiceCheckOk
                         }
                         
 
+                        #endregion
                     break;
                     // DECODIFICADOR CHASSI
                     case "27":
+                        #region DECODIFICADOR CHASSI
                         dadosDecodChassi = new DecodChassiController();
+                        subTrans = "PC27";
                         retorno.Cabecalho = new AuxDadosConsulta("27", "DECODIFICADOR DE CHASSI", parametros);
+                        // RESPOSTA FORNECEDOR
                         retorno.DecodChassi = dadosDecodChassi.getDecodChassi(dadosUsuario, parametros.dadosVeiculo, true);
+                        // BILHETA  REQUISICAO
+                        tmpReqFornecedor = String.IsNullOrEmpty(dadosDecodChassi.requisicaoFornecedor) ? (placa + "/" + chassi) : dadosDecodChassi.requisicaoFornecedor;
+                        tmpReqFornecedor = tmpReqFornecedor.Replace('\'', '\"').Replace('\t', ' ').Replace('\n', ' ');
+                        tmpReqFornecedor = tmpReqFornecedor.Length > 3999 ? tmpReqFornecedor.Substring(0, 3999) : tmpReqFornecedor;
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog1, tmpReqFornecedor.ToString());
+
+                        logServer += dadosDecodChassi.logServer;
+                        // BILHETA RESPOSTA
+                        serializer = new XmlSerializer(typeof(OKVeiculos));
+
+                        using (StringWriter writer = new EncodingTextUTF8())
+                        {
+                            serializer.Serialize(writer, retorno);
+                            tmpBuffer = writer.ToString();
+                        }
+
+                        tmpBuffer = tmpBuffer.Length > 3999 ? tmpBuffer.Replace('\'', '\"').Substring(0, 3999) : tmpBuffer.Replace('\'', '\"');
+
+                        DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subTrans, "", "", DateTime.Now, logServer, tmpLog, tmpLog, tmpLog, tmpLog, tmpLog, tmpBuffer.ToString());
+                        #endregion
                     break;
                 }
                  /* 
@@ -895,13 +1039,13 @@ namespace webServiceCheckOk
                 LogEstatico.setLogTexto(ex.Message + ex.StackTrace);
                 LogEstatico.setLogTexto("Parametros: " + logon + "/" + senha + "/" + chassi + "/" + uf + "/" + placa + "/" + renavam + "/" + nrMotor + "/" + crlv + "/" + ufCrlv + "/" + cpfCnpj + "/" + ddd1 + "/" + telefone1 + "/" + ddd2 + "/" + telefone2 + "/" + tipoPessoa + "/" + featRouboFurto + "/" + featSTF + "/" + featSTJ + "/" + featTST + "/" + featGravame + "/" + featPrecificador + "/" + featLeilao + "/" + featPerdaTotal + "/" + featBaseNacional + "/" + featDocProprietarios + "/" + codProduto);
             }
-            // TODO: CRIANDO O XML DE RETORNO
-            serializer = new XmlSerializer(typeof(OKVeiculos));
+            //// TODO: CRIANDO O XML DE RETORNO
+            //serializer = new XmlSerializer(typeof(OKVeiculos));
 
-            using (StringWriter writer = new EncodingTextUTF8())
-            {
-                serializer.Serialize(writer, retorno);
-            }
+            //using (StringWriter writer = new EncodingTextUTF8())
+            //{
+            //    serializer.Serialize(writer, retorno);
+            //}
 
             // INSERE LOG DE RESPOSTA
             // DataBases.InsertLog(Convert.ToDecimal(logLancamento), logon, "CHAUT", subtransacao, "", "", DateTime.Now, logServer, Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), Convert.ToDecimal("0"), logBuffer.ToString());
