@@ -31,11 +31,13 @@ namespace webServiceCheckOk.Model.ProdutosModel
             LeilaoModel leilaoDados = new LeilaoModel();
             int codFornecedor = 0;
 
+            // 3 = LEILÃO SINTÉTICO
             if (codProduto == 3)
             {
+                this.logServer = string.Empty;
+
                 // 1º CHECA A CREDIFY SE ESTA HABILITADA PARA HISTORICO DE LEILAO
-                codFornecedor = Verificacao.getFornecedorConsulta(21);
-                if(codFornecedor == 1)
+                if (Verificacao.getFornecedorConsulta(21) == 1)
                 {
                     this.logServer += "|CHECKOK_246";
                     FornCredify leilaoCredify = new FornCredify(carro, usuario);
@@ -45,11 +47,16 @@ namespace webServiceCheckOk.Model.ProdutosModel
                     this.logServer += "_" + leilaoDados.CodFornecedor;
                     this.requisicaoFornecedor = leilaoCredify.xmlRequisicao;
 
-                    // SE A CREDIFY TROUXER RESULTADOS COMPLETA AS INFORMAÇÕES COM A TBD
-                    if (leilaoDados.MsgLeilao.Codigo != "1")
+                    // 2º SE A CREDIFY NÃO TROUXER RESULTADOS TENTA NA TBD
+                    if (((leilaoDados.MsgLeilao.Codigo != "1") && (Verificacao.getFornecedorConsulta(20) == 1) ) || (leilaoDados.ErroLeilao != null))
                     {
+                        this.logServer += "|TDB_HIST_LEILAO";
+                        FornTdb leilaoTdb = new FornTdb(carro,"1", usuario);
 
- 
+                        leilaoDados = leilaoTdb.getLeilao();
+
+                        this.logServer += "_" + leilaoDados.CodFornecedor;
+                        this.requisicaoFornecedor = leilaoTdb.urlRequisicao;
                     }
                 }
             }
@@ -66,7 +73,7 @@ namespace webServiceCheckOk.Model.ProdutosModel
                     {
                         case 9:
                             this.logServer += "|TDB_LEILAO";
-                            FornTdb leilaoTDB = new FornTdb(carro, "1");
+                            FornTdb leilaoTDB = new FornTdb(carro, "1", usuario);
 
                             leilaoDados = leilaoTDB.getLeilao();
 

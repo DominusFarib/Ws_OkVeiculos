@@ -136,21 +136,21 @@ namespace webServiceCheckOk.Controle.Fornecedores
         public LeilaoModel getLeilao()
         {
             XmlDocument arrayResposta = new XmlDocument();
-            Veiculo tempCarro;
-            LeilaoModel tempLeilao;
 
             try
             {
+                this.credifyLeilao = new LeilaoModel();
                 this.idConsulta = "246";
                 setStrRequisicao();
+                //<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?><xml><ACESSO><LOGON>5863</LOGON><SENHA>73552401</SENHA></ACESSO><CONSULTA><IDCONSULTA>246</IDCONSULTA><CHASSI>8AFDR12A2AJ290586</CHASSI><PLACA></PLACA></CONSULTA></xml>
                 WsCredify.serverconsulta wsCredify = new WsCredify.serverconsulta();
                 this.retornoWs = wsCredify.Consultar(this.xmlRequisicao);
                 // XML PADRÃO CREDIFY
-                // this.retornoWs = "";   
+                // this.retornoWs = "<XML>	<CONSULTA>		<CODIGORESPOSTA>13638693</CODIGORESPOSTA>		<DATAHORA>21/03/2016 15:36:50</DATAHORA>		<LOGON>5863</LOGON>		<IDCONSULTA>246</IDCONSULTA>	</CONSULTA>	<RESPOSTA><CODIGO>2</CODIGO><LEILAO><MSG>NADA ENCONTRADO</MSG></LEILAO></RESPOSTA></XML>";   
                 
-                if(String.IsNullOrEmpty(this.retornoWs))
+                if(String.IsNullOrEmpty(this.retornoWs) || this.retornoWs.Contains("NADA ENCONTRADO"))
                 {
-                    this.credifyLeilao.ErroLeilao = new Erros("2", "CRFY: INFORMACAO NAO ENCONTRADA NAS BASES CONSULTADAS");
+                    this.credifyLeilao.MsgLeilao = new Erros("2", "CRFY: INFORMACAO NAO ENCONTRADA NAS BASES CONSULTADAS");
                     return this.credifyLeilao;
                 }
                 // OCORRENCIAS DE HISTORICO DE LEILÕES
@@ -277,16 +277,19 @@ namespace webServiceCheckOk.Controle.Fornecedores
         public string[] getLogonSenha(string logon)
         {
             OracleCommand comandoSQL = new OracleCommand();
+            DataBases baseDados = new DataBases();
+
+            comandoSQL.Connection = baseDados.Conn;
+
             System.Data.ConnectionState estatusConexao = comandoSQL.Connection.State;
             string[] dadosAcesso = new string[2];
-            DataBases baseDados = new DataBases();
 
             try
             {
                 // CRIA O COMANDO A SER EXECUTADO NO BANCO DE DADOS: USA A CONEXÃO DA CLASSE DATABASES
                 OracleDataReader leitorDados;
 
-                if (((comandoSQL.Connection.State & System.Data.ConnectionState.Open) != System.Data.ConnectionState.Open))
+                if (((estatusConexao & System.Data.ConnectionState.Open) != System.Data.ConnectionState.Open))
                     comandoSQL.Connection.Open();
                 
                 comandoSQL.CommandText = @"SELECT LOGON, SENHA FROM taccess.fonte_acesso " +
@@ -295,7 +298,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
                                                         @"INNER JOIN checkok.cliente C on (c.codigo = L.cod_entidade) "+
                                                         @"WHERE L.logon like '" + logon + "%')";
                 comandoSQL.CommandType = System.Data.CommandType.Text;
-                comandoSQL.Connection = baseDados.Conn;
+                //comandoSQL.Connection = baseDados.Conn;
 
                 leitorDados = comandoSQL.ExecuteReader();
 

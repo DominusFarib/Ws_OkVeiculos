@@ -786,7 +786,7 @@ namespace webServiceCheckOk
                         if (featLeilao)
                         {
                             dadosLeilao = new LeilaoController();
-                            retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo, true);
+                            retorno.Leilao = dadosLeilao.getLeilao(dadosUsuario, parametros.dadosVeiculo, 6);
                             
                             logServer = ip + "|" + dadosLeilao.logServer;
 

@@ -15,7 +15,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
 {
     public class FornTdb
     {
-        public UsuarioModel dadosUsuario = new UsuarioModel();
+        private UsuarioModel dadosUsuario;
 
         public string codConsulta { get; set; }
         public string urlRequisicao { get; set; }
@@ -34,8 +34,9 @@ namespace webServiceCheckOk.Controle.Fornecedores
         private List<Veiculo> dadosCarro { get; set; }
 
         // CONSTRUTOR
-        public FornTdb(Veiculo carro, string tipoBaseLeilao)
+        public FornTdb(Veiculo carro, string tipoBaseLeilao, UsuarioModel usuario)
         {
+            this.dadosUsuario = usuario;
             this.carro = carro;
             this.acesLogin = "CHECKOK";
             this.acesPassword = "CHK10109798";
