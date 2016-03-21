@@ -38,6 +38,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
         // GRAVAME RESPOSTA
         public GravameModel getGravame()
         {
+            this.credifyGravame = new GravameModel();
             XmlDocument arrayResposta = new XmlDocument();
             Veiculo dadosCarro;
             GravameModel dadosGravame;
@@ -78,6 +79,7 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 if (arrayResposta.SelectNodes("/XML/RESPOSTA/GRAVAME").Count > 0)
                 {
                     this.credifyGravame.MsgGravame = new Erros("1", "CONSTA REGISTRO DE GRAVAME PARA O VEICULO INFORMADO");
+                    this.credifyGravame.HistoricoGravames = new List<AuxHistoricoGravames>();
                     int i = 0;
                     while (i != -1)
                     {
@@ -144,9 +146,12 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 setStrRequisicao();
                 //<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?><xml><ACESSO><LOGON>5863</LOGON><SENHA>73552401</SENHA></ACESSO><CONSULTA><IDCONSULTA>246</IDCONSULTA><CHASSI>8AFDR12A2AJ290586</CHASSI><PLACA></PLACA></CONSULTA></xml>
                 WsCredify.serverconsulta wsCredify = new WsCredify.serverconsulta();
-                this.retornoWs = wsCredify.Consultar(this.xmlRequisicao);
+                // this.retornoWs = wsCredify.Consultar(this.xmlRequisicao);
                 // XML PADRÃO CREDIFY
-                // this.retornoWs = "<XML>	<CONSULTA>		<CODIGORESPOSTA>13638693</CODIGORESPOSTA>		<DATAHORA>21/03/2016 15:36:50</DATAHORA>		<LOGON>5863</LOGON>		<IDCONSULTA>246</IDCONSULTA>	</CONSULTA>	<RESPOSTA><CODIGO>2</CODIGO><LEILAO><MSG>NADA ENCONTRADO</MSG></LEILAO></RESPOSTA></XML>";   
+                // NADA ENCONTRADO : 
+                // this.retornoWs = "<XML><CONSULTA>	<CODIGORESPOSTA>13638693</CODIGORESPOSTA>		<DATAHORA>21/03/2016 15:36:50</DATAHORA>		<LOGON>5863</LOGON>		<IDCONSULTA>246</IDCONSULTA>	</CONSULTA>	<RESPOSTA><CODIGO>2</CODIGO><LEILAO><MSG>NADA ENCONTRADO</MSG></LEILAO></RESPOSTA></XML>";   
+                // ENCONTRADO : 
+                this.retornoWs = "<XML>	<CONSULTA><CODIGORESPOSTA>13639717</CODIGORESPOSTA><DATAHORA>21/03/2016 16:02:13</DATAHORA>		<LOGON>5863</LOGON>		<IDCONSULTA>246</IDCONSULTA>	</CONSULTA>	<RESPOSTA><CODIGO>1</CODIGO><LEILAO>  <REGISTRO_0>	<MARCA></MARCA>	<MODELO>M.BENZ /M.BENZ/INDUSCAR APACHE U</MODELO>	<ANOMODELO>2009/2010</ANOMODELO>	<PLACA>JHX0233</PLACA>	<CHASSI>9BM384078AB671048</CHASSI>	<RENAVAM></RENAVAM>	<COR>Branca</COR>	<COMBUSTIVEL></COMBUSTIVEL>	<CD_UF_VEIC></CD_UF_VEIC>	<DS_CATEG_VEIC></DS_CATEG_VEIC>	<ESTADOGERAL>N?#o Informado</ESTADOGERAL>	<CONDCHASSIS>N?#o Informado</CONDCHASSIS>	<CONDMOTOR>N?#o Informado</CONDMOTOR>	<CONDCAMBIO>NAO INFORMADO</CONDCAMBIO>	<CONDCARROCERIA></CONDCARROCERIA>	<CONDMECANICA>NAO INFORMADO</CONDMECANICA>	<TIPOSINISTRO></TIPOSINISTRO>	<OBSERVACAO>NAO INFORMADO</OBSERVACAO>	<LEILOEIRO>LEONICE FIXER</LEILOEIRO>	<COMITENTE>NAO INFORMADO</COMITENTE>	<LOTE>07</LOTE>	<DATALEILAO>24/11/2011</DATALEILAO></REGISTRO_0></LEILAO></RESPOSTA></XML>";
                 
                 if(String.IsNullOrEmpty(this.retornoWs) || this.retornoWs.Contains("NADA ENCONTRADO"))
                 {
@@ -180,9 +185,13 @@ namespace webServiceCheckOk.Controle.Fornecedores
                 }
 
                 this.credifyLeilao.MsgLeilao = new Erros("1", "CONSTA REGISTRO DE LEILAO PARA O VEICULO INFORMADO");
+                this.credifyLeilao.HistoricoLeilao = new List<AuxHistoricoLeiloes>();
 
                 foreach (XmlNode node in listaOcorrencias)
                 {
+                    this.tempLeilao = new LeilaoModel();
+                    this.tempCarro = new Veiculo();
+
                     this.tempLeilao.Leiloeiro = node.SelectSingleNode("LEILOEIRO").InnerText;
                     this.tempLeilao.Lote = node.SelectSingleNode("LOTE").InnerText;
 
